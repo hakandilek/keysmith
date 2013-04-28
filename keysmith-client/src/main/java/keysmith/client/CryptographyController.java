@@ -25,20 +25,24 @@ public class CryptographyController {
 			.getLogger(CryptographyController.class);
 
 	private String algorithm;
+	
 	private String cipherTransformation;
+
+	private int keySize;
 
 	public CryptographyController() {
 	}
 
-	public void init(String algorithm, String cipherTransformation) {
+	public void init(String algorithm, String cipherTransformation, int keySize) {
 		this.algorithm = algorithm;
 		this.cipherTransformation = cipherTransformation;
+		this.keySize = keySize;
 	}
 
 	public KeyPair generateKeyPair() {
 		try {
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm);
-			keyGen.initialize(512);
+			keyGen.initialize(keySize);
 			KeyPair kp = keyGen.genKeyPair();
 			return kp;
 		} catch (NoSuchAlgorithmException e) {

@@ -20,10 +20,14 @@ public class KeysmithClientConfiguration extends Configuration {
 	@Valid
 	@NotNull
 	private String algorithm;
-	
+
 	@Valid
 	@NotNull
 	private String cipherTransformation;
+
+	@Valid
+	@NotNull
+	private Integer keySize;
 
 	@Valid
 	@NotNull
@@ -64,6 +68,14 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	public void setCipherTransformation(String cipherTransformation) {
 		this.cipherTransformation = cipherTransformation;
+	}
+
+	public Integer getKeySize() {
+		return keySize;
+	}
+
+	public void setKeySize(Integer keySize) {
+		this.keySize = keySize;
 	}
 
 }

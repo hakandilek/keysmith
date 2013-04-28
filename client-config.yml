@@ -1,4 +1,12 @@
+#Encoding algorithm
 algorithm: RSA
 cipherTransformation: RSA/ECB/PKCS1Padding
+
+#should be at least 512
+keySize: 1024
+
+#unique id
 keyId: key1
+
+#message to encode
 message: Hello World!

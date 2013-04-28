@@ -25,7 +25,10 @@ public class KeysmithClient extends Service<KeysmithClientConfiguration> {
 	@Override
 	public void run(KeysmithClientConfiguration configuration,
 			Environment environment) throws Exception {
-		controller.init(configuration.getAlgorithm(), configuration.getCipherTransformation());
+		String algorithm = configuration.getAlgorithm();
+		String cipherTransformation = configuration.getCipherTransformation();
+		Integer keySize = configuration.getKeySize();
+		controller.init(algorithm, cipherTransformation, keySize);
 	}
 
 }
