@@ -31,6 +31,14 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
+	private String keysmithServer;
+
+	@Valid
+	@NotNull
+	private String messengerServer;
+
+	@Valid
+	@NotNull
 	@JsonProperty
 	private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
 
@@ -76,6 +84,22 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	public void setKeySize(Integer keySize) {
 		this.keySize = keySize;
+	}
+
+	public String getKeysmithServer() {
+		return keysmithServer;
+	}
+
+	public void setKeysmithServer(String keysmithServer) {
+		this.keysmithServer = keysmithServer;
+	}
+
+	public String getMessengerServer() {
+		return messengerServer;
+	}
+
+	public void setMessengerServer(String messengerServer) {
+		this.messengerServer = messengerServer;
 	}
 
 }

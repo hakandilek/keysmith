@@ -13,8 +13,6 @@ public class MessengerServerClient extends ApiClient {
 	private static final Logger log = LoggerFactory
 			.getLogger(MessengerServerClient.class);
 
-	private static final String SERVER = "http://localhost:8080";
-
 	private String postMessageURL;
 
 	private String getMessageURL;
@@ -22,8 +20,9 @@ public class MessengerServerClient extends ApiClient {
 	public MessengerServerClient(Environment environment,
 			KeysmithClientConfiguration configuration) {
 		super(environment, configuration);
-		postMessageURL = String.format("%s/messenger/message/%%s", SERVER);
-		getMessageURL = String.format("%s/messenger/message/%%s", SERVER);
+		String server = configuration.getMessengerServer();
+		postMessageURL = String.format("%s/messenger/message/%%s", server);
+		getMessageURL = String.format("%s/messenger/message/%%s", server);
 	}
 
 	public void postMessage(String address, Message message) {

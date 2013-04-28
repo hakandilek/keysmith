@@ -1,4 +1,4 @@
-package keysmith.server.resources;
+package keysmith.messenger.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import keysmith.common.core.Message;
-import keysmith.server.core.MessageStore;
+import keysmith.messenger.core.MessageStore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

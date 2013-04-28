@@ -1,12 +1,16 @@
-#Encoding algorithm
+# Encoding algorithm
 algorithm: RSA
 cipherTransformation: RSA/ECB/PKCS1Padding
 
-#should be at least 512
+# should be at least 512
 keySize: 1024
 
-#unique id
+# unique id
 keyId: key1
 
-#message to encode
+# message to encode
 message: Hello World!
+
+# servers to use
+keysmithServer: http://localhost:8080
+messengerServer: http://localhost:8090

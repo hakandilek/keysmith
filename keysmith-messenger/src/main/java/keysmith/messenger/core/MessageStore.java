@@ -1,4 +1,4 @@
-package keysmith.server.core;
+package keysmith.messenger.core;
 
 import java.util.HashMap;
 import java.util.Map;

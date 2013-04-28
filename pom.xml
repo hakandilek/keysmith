@@ -8,8 +8,9 @@
 	<name>keysmith</name>
 	
 	<modules>
+        <module>keysmith-server</module>
+        <module>keysmith-common</module>
 		<module>keysmith-client</module>
-		<module>keysmith-server</module>
-		<module>keysmith-common</module>
+		<module>keysmith-messenger</module>
 	</modules>
 </project>

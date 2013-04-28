@@ -16,8 +16,6 @@ public class KeysmithServerClient extends ApiClient {
 	private static final Logger log = LoggerFactory
 			.getLogger(KeysmithServerClient.class);
 
-	private static final String SERVER = "http://localhost:8080";
-
 	private final String postKeyURL;
 
 	private final String updateKeyURL;
@@ -32,10 +30,11 @@ public class KeysmithServerClient extends ApiClient {
 			KeysmithClientConfiguration configuration, CryptographyHelper helper) {
 		super(environment, configuration);
 		this.helper = helper;
-		postKeyURL = String.format("%s/keysmith/publicKey", SERVER);
-		updateKeyURL = String.format("%s/keysmith/publicKey/%%s", SERVER);
-		getKeyURL = String.format("%s/keysmith/publicKey/%%s", SERVER);
-		removeKeyURL = String.format("%s/keysmith/publicKey/%%s", SERVER);
+		String server = configuration.getKeysmithServer();
+		postKeyURL = String.format("%s/keysmith/publicKey", server);
+		updateKeyURL = String.format("%s/keysmith/publicKey/%%s", server);
+		getKeyURL = String.format("%s/keysmith/publicKey/%%s", server);
+		removeKeyURL = String.format("%s/keysmith/publicKey/%%s", server);
 	}
 
 	public String updatePublicKey(String keyId, PublicKey key) {
