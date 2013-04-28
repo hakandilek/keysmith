@@ -4,26 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import keysmith.common.core.Message;
+
 public class MessageStore {
 
-	private final Map<String, String> messages = new HashMap<String, String>();
+	private final Map<String, Message> messages = new HashMap<String, Message>();
 
-	public String get(String keyId) {
+	public Message get(String keyId) {
 		return messages.get(keyId);
 	}
 
-	public String put(String key) {
+	public String put(Message message) {
 		String keyId = UUID.randomUUID().toString();
-		messages.put(keyId, key);
+		messages.put(keyId, message);
 		return keyId;
 	}
 
-	public String update(String keyId, String key) {
-		messages.put(keyId, key);
+	public String update(String keyId, Message message) {
+		messages.put(keyId, message);
 		return keyId;
 	}
 
-	public String remove(String keyId) {
+	public Message remove(String keyId) {
 		return messages.remove(keyId);
 	}
 

@@ -1,6 +1,7 @@
 package keysmith.client.client;
 
 import keysmith.client.KeysmithClientConfiguration;
+import keysmith.common.core.Message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +26,16 @@ public class MessengerServerClient extends ApiClient {
 		getMessageURL = String.format("%s/messenger/message/%%s", SERVER);
 	}
 
-	public void postMessage(String address, String encoded) {
+	public void postMessage(String address, Message message) {
 		String url = String.format(postMessageURL, address);
 		log.info("postMessage : " + url);
-		utils.post(client, url, Void.class, encoded);
+		utils.post(client, url, Void.class, message);
 	}
 
-	public String getMessage(String address) {
+	public Message getMessage(String address) {
 		String url = String.format(getMessageURL, address);
 		log.info("getMessage : " + url);
-		return utils.get(client, url, String.class);
+		return utils.get(client, url, Message.class);
 	}
 
 }

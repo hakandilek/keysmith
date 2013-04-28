@@ -2,6 +2,7 @@ package keysmith.client.client;
 
 import java.security.PublicKey;
 
+import keysmith.client.CryptographyHelper;
 import keysmith.client.KeysmithClientConfiguration;
 
 import org.slf4j.Logger;
@@ -25,9 +26,12 @@ public class KeysmithServerClient extends ApiClient {
 
 	private final String removeKeyURL;
 
+	private CryptographyHelper helper;
+
 	public KeysmithServerClient(Environment environment,
-			KeysmithClientConfiguration configuration) {
+			KeysmithClientConfiguration configuration, CryptographyHelper helper) {
 		super(environment, configuration);
+		this.helper = helper;
 		postKeyURL = String.format("%s/keysmith/publicKey", SERVER);
 		updateKeyURL = String.format("%s/keysmith/publicKey/%%s", SERVER);
 		getKeyURL = String.format("%s/keysmith/publicKey/%%s", SERVER);
@@ -37,7 +41,7 @@ public class KeysmithServerClient extends ApiClient {
 	public String updatePublicKey(String keyId, PublicKey key) {
 		String url = String.format(updateKeyURL, keyId);
 		log.info("updatePublicKey : " + url);
-		String keyString = Encoder.encode(key);
+		String keyString = helper.encodePublicKey(key);
 		log.info("key encoded : " + keyString);
 		utils.post(client, url, Void.class, keyString);
 		return keyId;
@@ -46,7 +50,7 @@ public class KeysmithServerClient extends ApiClient {
 	public String postPublicKey(PublicKey key) {
 		String url = postKeyURL;
 		log.info("postPublicKey : " + url);
-		String keyString = Encoder.encode(key);
+		String keyString = helper.encodePublicKey(key);
 		log.info("key encoded : " + keyString);
 		return utils.post(client, url, String.class, keyString);
 	}
@@ -55,7 +59,7 @@ public class KeysmithServerClient extends ApiClient {
 		String url = String.format(getKeyURL, keyId);
 		log.info("getPublicKey : " + url);
 		String keyString = utils.get(client, url, String.class);
-		PublicKey key = Encoder.decodePublicKey(keyString);
+		PublicKey key = helper.decodePublicKey(keyString);
 		return key;
 	}
 
@@ -63,7 +67,7 @@ public class KeysmithServerClient extends ApiClient {
 		String url = String.format(removeKeyURL, keyId);
 		log.info("removePublicKey : " + url);
 		String keyString = utils.delete(client, url, String.class);
-		PublicKey key = Encoder.decodePublicKey(keyString);
+		PublicKey key = helper.decodePublicKey(keyString);
 		return key;
 	}
 

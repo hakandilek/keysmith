@@ -10,5 +10,6 @@
 	<modules>
 		<module>keysmith-client</module>
 		<module>keysmith-server</module>
+		<module>keysmith-common</module>
 	</modules>
 </project>

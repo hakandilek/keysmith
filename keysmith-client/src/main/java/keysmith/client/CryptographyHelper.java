@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
@@ -20,23 +21,27 @@ import keysmith.client.client.Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CryptographyController {
+public class CryptographyHelper {
 	private static final Logger log = LoggerFactory
-			.getLogger(CryptographyController.class);
+			.getLogger(CryptographyHelper.class);
 
 	private String algorithm;
-	
+
 	private String cipherTransformation;
 
 	private int keySize;
 
-	public CryptographyController() {
+	private KeyFactory keyFactory;
+
+	public CryptographyHelper() {
 	}
 
-	public void init(String algorithm, String cipherTransformation, int keySize) {
+	public void init(String algorithm, String cipherTransformation, int keySize)
+			throws NoSuchAlgorithmException {
 		this.algorithm = algorithm;
 		this.cipherTransformation = cipherTransformation;
 		this.keySize = keySize;
+		this.keyFactory = KeyFactory.getInstance(algorithm);
 	}
 
 	public KeyPair generateKeyPair() {
@@ -47,6 +52,22 @@ public class CryptographyController {
 			return kp;
 		} catch (NoSuchAlgorithmException e) {
 			log.error("Algorithm not recognized" + e, e);
+		}
+		return null;
+	}
+
+	public String encodePublicKey(PublicKey key) {
+		return Encoder.encode(key.getEncoded());
+	}
+
+	public PublicKey decodePublicKey(String keyString) {
+		try {
+			byte[] data = Encoder.decode(keyString);
+			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(data);
+			PublicKey key = keyFactory.generatePublic(keySpec);
+			return key;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -77,7 +98,6 @@ public class CryptographyController {
 			is.close();
 
 			// Convert to key.
-			KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
 			PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(
 					encodedPrivateKey);
 			PrivateKey key = keyFactory.generatePrivate(privateKeySpec);
@@ -88,12 +108,12 @@ public class CryptographyController {
 		return null;
 	}
 
-	public String encrypt(String message, PublicKey key) {
+	public String encrypt(String data, PublicKey key) {
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 
-			byte[] stringBytes = message.getBytes("UTF8");
+			byte[] stringBytes = data.getBytes("UTF8");
 
 			// encrypt using the cypher
 			byte[] raw = cipher.doFinal(stringBytes);

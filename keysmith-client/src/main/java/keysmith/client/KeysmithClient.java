@@ -10,16 +10,16 @@ import com.yammer.dropwizard.config.Environment;
 
 public class KeysmithClient extends Service<KeysmithClientConfiguration> {
 
-	private CryptographyController controller;
+	private CryptographyHelper helper;
 
 	@Override
 	public void initialize(Bootstrap<KeysmithClientConfiguration> bootstrap) {
 		bootstrap.setName("keysmith-client");
 		
-		controller = new CryptographyController();
-		bootstrap.addCommand(new GenerateKeyCommand(this, controller));
-		bootstrap.addCommand(new SendMessageCommand(this, controller));
-		bootstrap.addCommand(new ReadMessageCommand(this, controller));
+		helper = new CryptographyHelper();
+		bootstrap.addCommand(new GenerateKeyCommand(this, helper));
+		bootstrap.addCommand(new SendMessageCommand(this, helper));
+		bootstrap.addCommand(new ReadMessageCommand(this, helper));
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class KeysmithClient extends Service<KeysmithClientConfiguration> {
 		String algorithm = configuration.getAlgorithm();
 		String cipherTransformation = configuration.getCipherTransformation();
 		Integer keySize = configuration.getKeySize();
-		controller.init(algorithm, cipherTransformation, keySize);
+		helper.init(algorithm, cipherTransformation, keySize);
 	}
 
 }

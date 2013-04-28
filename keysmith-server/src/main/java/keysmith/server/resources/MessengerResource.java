@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import keysmith.common.core.Message;
 import keysmith.server.core.MessageStore;
 
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class MessengerResource {
 	@Path("/message/{address}")
 	public Response getMessage(@InjectParam String address) {
 		log.info("getMessage : " + address);
-		String msg = store.get(address);
+		Message msg = store.get(address);
 		if (msg == null) {
 			return Response.noContent().build();
 		}
@@ -48,7 +49,7 @@ public class MessengerResource {
 	@Timed
 	@Path("/message")
 	@Produces()
-	public Response postMessage(String msg) {
+	public Response postMessage(Message msg) {
 		log.info("postMessage : " + msg);
 		String address = store.put(msg);
 		if (address == null) {
@@ -60,7 +61,7 @@ public class MessengerResource {
 	@POST
 	@Timed
 	@Path("/message/{address}")
-	public Response updateMessage(@InjectParam String address, String msg) {
+	public Response updateMessage(@InjectParam String address, Message msg) {
 		log.info("updateMessage : " + address + ", " + msg);
 		String oldAddress = store.update(address, msg);
 		if (oldAddress == null) {
@@ -74,11 +75,11 @@ public class MessengerResource {
 	@Path("/message/{address}")
 	public Response removeMessage(@InjectParam String address) {
 		log.info("removeMessage : " + address);
-		String key = store.remove(address);
-		if (key == null) {
+		Message msg = store.remove(address);
+		if (msg == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(key).build();
+		return Response.ok(msg).build();
 	}
 
 }
