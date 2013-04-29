@@ -28,7 +28,7 @@ public class MessengerServerClient extends ApiClient {
 	public void postMessage(String address, Message message) {
 		String url = String.format(postMessageURL, address);
 		log.info("postMessage : " + url);
-		utils.post(client, url, Void.class, message);
+		utils.post(client, url, String.class, message);
 	}
 
 	public Message getMessage(String address) {

@@ -19,12 +19,24 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
-	private String algorithm;
+	private String publicKeyAlgorithm;
 
 	@Valid
 	@NotNull
-	private String cipherTransformation;
+	private String publicKeyTransformation;
 
+	@Valid
+	@NotNull
+	private String secretKeyAlgorithm;
+
+	@Valid
+	@NotNull
+	private String secretKeyTransformation;
+
+	@Valid
+	@NotNull
+	private String secretSeed;
+	
 	@Valid
 	@NotNull
 	private Integer keySize;
@@ -62,20 +74,36 @@ public class KeysmithClientConfiguration extends Configuration {
 		this.message = message;
 	}
 
-	public String getAlgorithm() {
-		return algorithm;
+	public String getPublicKeyAlgorithm() {
+		return publicKeyAlgorithm;
 	}
 
-	public void setAlgorithm(String algorithm) {
-		this.algorithm = algorithm;
+	public void setPublicKeyAlgorithm(String publicKeyAlgorithm) {
+		this.publicKeyAlgorithm = publicKeyAlgorithm;
 	}
 
-	public String getCipherTransformation() {
-		return cipherTransformation;
+	public String getPublicKeyTransformation() {
+		return publicKeyTransformation;
 	}
 
-	public void setCipherTransformation(String cipherTransformation) {
-		this.cipherTransformation = cipherTransformation;
+	public void setPublicKeyTransformation(String publicKeyTransformation) {
+		this.publicKeyTransformation = publicKeyTransformation;
+	}
+
+	public String getSecretKeyAlgorithm() {
+		return secretKeyAlgorithm;
+	}
+
+	public void setSecretKeyAlgorithm(String secretKeyAlgorithm) {
+		this.secretKeyAlgorithm = secretKeyAlgorithm;
+	}
+
+	public String getSecretKeyTransformation() {
+		return secretKeyTransformation;
+	}
+
+	public void setSecretKeyTransformation(String secretKeyTransformation) {
+		this.secretKeyTransformation = secretKeyTransformation;
 	}
 
 	public Integer getKeySize() {
@@ -100,6 +128,14 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	public void setMessengerServer(String messengerServer) {
 		this.messengerServer = messengerServer;
+	}
+
+	public String getSecretSeed() {
+		return secretSeed;
+	}
+
+	public void setSecretSeed(String secretSeed) {
+		this.secretSeed = secretSeed;
 	}
 
 }

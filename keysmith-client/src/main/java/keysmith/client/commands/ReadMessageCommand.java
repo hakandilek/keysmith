@@ -5,7 +5,7 @@ import java.security.PrivateKey;
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.MessengerServerClient;
 import keysmith.client.core.CryptographyController;
-import keysmith.client.core.CryptographyHelper;
+import keysmith.client.core.KeyMaster;
 import keysmith.common.core.Message;
 import net.sourceforge.argparse4j.inf.Namespace;
 
@@ -22,15 +22,15 @@ public class ReadMessageCommand extends
 	private static final Logger log = LoggerFactory
 			.getLogger(ReadMessageCommand.class);
 
-	private CryptographyHelper helper;
+	private KeyMaster keyMaster;
 
 	private CryptographyController controller;
 
 	public ReadMessageCommand(Service<KeysmithClientConfiguration> service,
-			CryptographyHelper helper) {
+			KeyMaster keyMaster) {
 		super(service, "read", "Reads a message from the server and decodes it with the previously stored private key");
-		this.helper = helper;
-		this.controller = new CryptographyController(helper);
+		this.keyMaster = keyMaster;
+		this.controller = new CryptographyController(keyMaster);
 	}
 
 	@Override
@@ -39,16 +39,28 @@ public class ReadMessageCommand extends
 		String keyId = configuration.getKeyId();
 		MessengerServerClient messenger = new MessengerServerClient(environment, configuration);
 		
-		log.info("getting encoded message from messenger server :" + keyId + " ...");
-		Message encoded = messenger.getMessage(keyId);
-		log.info("got encoded message:" + encoded);
+		log.info("getting public key encoded message from messenger server :" + keyId + " ...");
+		Message publicKeyEncoded = messenger.getMessage("public-" + keyId);
+		log.info("got encoded message:" + publicKeyEncoded);
+		log.info("getting secret key encoded message from messenger server :" + keyId + " ...");
+		Message secretKeyEncoded = messenger.getMessage("secret-" + keyId);
+		log.info("got encoded message:" + secretKeyEncoded);
+		log.info("getting hybrid key encoded message from messenger server :" + keyId + " ...");
+		Message hybridEncoded = messenger.getMessage("hybrid-" + keyId);
+		log.info("got encoded message:" + hybridEncoded);
 		
 		log.info("loading private key...");
-		PrivateKey key = helper.loadPrivateKey(keyId);
+		PrivateKey priKey = keyMaster.loadPrivateKey(keyId);
 		log.info("private key loaded");
 		
-		log.info("decoding message...");
-		String message = controller.publicDecrypt(encoded, key);
+		log.info("decoding public key message...");
+		String message = controller.publicDecrypt(publicKeyEncoded, priKey);
+		log.info("message decoded:" + message);
+		log.info("decoding secret key message...");
+		message = controller.symmetricDecrypt(secretKeyEncoded);
+		log.info("message decoded:" + message);
+		log.info("decoding hybrid message...");
+		message = controller.hybridDecrypt(hybridEncoded, priKey);
 		log.info("message decoded:" + message);
 	}
 

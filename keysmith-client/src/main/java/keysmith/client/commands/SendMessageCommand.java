@@ -2,11 +2,13 @@ package keysmith.client.commands;
 
 import java.security.PublicKey;
 
+import javax.crypto.SecretKey;
+
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.KeysmithServerClient;
 import keysmith.client.client.MessengerServerClient;
 import keysmith.client.core.CryptographyController;
-import keysmith.client.core.CryptographyHelper;
+import keysmith.client.core.KeyMaster;
 import keysmith.common.core.Message;
 import net.sourceforge.argparse4j.inf.Namespace;
 
@@ -23,16 +25,16 @@ public class SendMessageCommand extends
 	private static final Logger log = LoggerFactory
 			.getLogger(SendMessageCommand.class);
 
-	private CryptographyHelper helper;
+	private KeyMaster keyMaster;
 
 	private CryptographyController controller;
 
 	public SendMessageCommand(Service<KeysmithClientConfiguration> service,
-			CryptographyHelper helper) {
+			KeyMaster keyMaster) {
 		super(service, "send", "Encodes the message with the public key "
 				+ "from keysmith server and sends it to the messenger server");
-		this.helper = helper;
-		this.controller = new CryptographyController(helper);
+		this.keyMaster = keyMaster;
+		this.controller = new CryptographyController(keyMaster);
 	}
 
 	@Override
@@ -41,21 +43,37 @@ public class SendMessageCommand extends
 		String keyId = configuration.getKeyId();
 		String message = configuration.getMessage();
 		KeysmithServerClient keysmith = new KeysmithServerClient(environment,
-				configuration, helper);
+				configuration, keyMaster);
 		MessengerServerClient messenger = new MessengerServerClient(
 				environment, configuration);
 
 		log.info("getting public key :" + keyId + " ...");
-		PublicKey key = keysmith.getPublicKey(keyId);
-		log.info("got public key:" + key);
+		PublicKey pubKey = keysmith.getPublicKey(keyId);
+		log.info("got public key:" + pubKey);
+		log.info("generating secret key :" + keyId + " ...");
+		SecretKey secKey = keyMaster.generateSecretKey();
+		log.info("generated secret key:" + secKey);
 
-		log.info("encoding message...");
-		Message encoded = controller.publicEncrypt(message, key);
-		log.info("message encoded : " + encoded);
+		log.info("encoding message with public key ...");
+		Message publicKeyEncoded = controller.publicEncrypt(message, pubKey);
+		log.info("message encoded : " + publicKeyEncoded);
+		log.info("encoding message with secret key ...");
+		Message secretKeyEncoded = controller.symmetricEncrypt(message, secKey);
+		log.info("message encoded : " + secretKeyEncoded);
+		log.info("encoding message hybrid ...");
+		Message hybridEncoded = controller.hybridEncrypt(message, pubKey);
+		log.info("message encoded : " + hybridEncoded);
 
-		log.info("posting message to messenger server...");
-		messenger.postMessage(keyId, encoded);
+		log.info("posting public key encoded message to messenger server...");
+		messenger.postMessage("public-" + keyId, publicKeyEncoded);
 		log.info("message posted");
+		log.info("posting secret key encoded message to messenger server...");
+		messenger.postMessage("secret-" + keyId, secretKeyEncoded);
+		log.info("message posted");
+		log.info("posting hybrid encoded message to messenger server...");
+		messenger.postMessage("hybrid-" + keyId, hybridEncoded);
+		log.info("message posted");
+
 	}
 
 }

@@ -13,40 +13,52 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
-
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CryptographyHelper {
-	private static final Logger log = LoggerFactory
-			.getLogger(CryptographyHelper.class);
-
-	private String algorithm;
-
-	private String cipherTransformation;
+public class KeyMaster {
+	private static final Logger log = LoggerFactory.getLogger(KeyMaster.class);
 
 	private int keySize;
 
-	private KeyFactory keyFactory;
+	private String publicKeyAlgorithm;
 
-	public CryptographyHelper() {
+	private String publicKeyTransformation;
+
+	private String secretKeyAlgorithm;
+
+	private String secretKeyTransformation;
+
+	private KeyFactory publicKeyFactory;
+
+	private String secretSeed;
+
+	public KeyMaster() {
 	}
 
-	public void init(String algorithm, String cipherTransformation, int keySize)
-			throws NoSuchAlgorithmException {
-		this.algorithm = algorithm;
-		this.cipherTransformation = cipherTransformation;
+	public void init(String publicKeyAlgorithm, String publicKeyTransformation,
+			String secretKeyAlgorithm, String secretKeyTransformation,
+			String secretSeed, Integer keySize) throws NoSuchAlgorithmException {
+		this.publicKeyAlgorithm = publicKeyAlgorithm;
+		this.publicKeyTransformation = publicKeyTransformation;
+		this.secretKeyAlgorithm = secretKeyAlgorithm;
+		this.secretKeyTransformation = secretKeyTransformation;
+		this.secretSeed = secretSeed;
 		this.keySize = keySize;
-		this.keyFactory = KeyFactory.getInstance(algorithm);
+		this.publicKeyFactory = KeyFactory.getInstance(publicKeyAlgorithm);
 	}
 
 	public KeyPair generateKeyPair() {
 		try {
-			KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm);
+			KeyPairGenerator keyGen = KeyPairGenerator
+					.getInstance(publicKeyAlgorithm);
 			keyGen.initialize(keySize);
 			KeyPair kp = keyGen.genKeyPair();
 			return kp;
@@ -54,6 +66,21 @@ public class CryptographyHelper {
 			log.error("Algorithm not recognized" + e, e);
 		}
 		return null;
+	}
+
+	public SecretKey generateSecretKey() {
+		byte[] seedBytes = secretSeed.getBytes();
+		byte[] bytes = new byte[24];
+		new Random().nextBytes(bytes);
+
+		// feed first 8 bytes from the seed
+		for (int i = 0; i < seedBytes.length && i < 8; i++) {
+			byte b = seedBytes[i];
+			bytes[i] = b;
+		}
+
+		SecretKeySpec ks = new SecretKeySpec(bytes, secretKeyAlgorithm);
+		return ks;
 	}
 
 	public String encodePublicKey(PublicKey key) {
@@ -64,12 +91,21 @@ public class CryptographyHelper {
 		try {
 			byte[] data = Encoder.decode(keyString);
 			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(data);
-			PublicKey key = keyFactory.generatePublic(keySpec);
+			PublicKey key = publicKeyFactory.generatePublic(keySpec);
 			return key;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String encodeSecretKey(SecretKey key) {
+		return Encoder.encode(key.getEncoded());
+	}
+
+	public SecretKey decodeSecretKey(String keyString) {
+		byte[] data = Encoder.decode(keyString);
+		return new SecretKeySpec(data, secretKeyAlgorithm);
 	}
 
 	public String savePrivateKey(String keyId, PrivateKey key) {
@@ -100,7 +136,7 @@ public class CryptographyHelper {
 			// Convert to key.
 			PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(
 					encodedPrivateKey);
-			PrivateKey key = keyFactory.generatePrivate(privateKeySpec);
+			PrivateKey key = publicKeyFactory.generatePrivate(privateKeySpec);
 			return key;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,8 +144,14 @@ public class CryptographyHelper {
 		return null;
 	}
 
-	public Cipher getCipher() throws NoSuchAlgorithmException, NoSuchPaddingException {
-		return Cipher.getInstance(cipherTransformation);
+	public Cipher getPublicCipher() throws NoSuchAlgorithmException,
+			NoSuchPaddingException {
+		return Cipher.getInstance(publicKeyTransformation);
+	}
+
+	public Cipher getSecretCipher() throws NoSuchAlgorithmException,
+			NoSuchPaddingException {
+		return Cipher.getInstance(secretKeyTransformation);
 	}
 
 }

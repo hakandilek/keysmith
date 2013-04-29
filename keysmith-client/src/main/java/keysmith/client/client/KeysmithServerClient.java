@@ -3,7 +3,7 @@ package keysmith.client.client;
 import java.security.PublicKey;
 
 import keysmith.client.KeysmithClientConfiguration;
-import keysmith.client.core.CryptographyHelper;
+import keysmith.client.core.KeyMaster;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +24,12 @@ public class KeysmithServerClient extends ApiClient {
 
 	private final String removeKeyURL;
 
-	private CryptographyHelper helper;
+	private KeyMaster keyMaster;
 
 	public KeysmithServerClient(Environment environment,
-			KeysmithClientConfiguration configuration, CryptographyHelper helper) {
+			KeysmithClientConfiguration configuration, KeyMaster keyMaster) {
 		super(environment, configuration);
-		this.helper = helper;
+		this.keyMaster = keyMaster;
 		String server = configuration.getKeysmithServer();
 		postKeyURL = String.format("%s/keysmith/publicKey", server);
 		updateKeyURL = String.format("%s/keysmith/publicKey/%%s", server);
@@ -40,16 +40,16 @@ public class KeysmithServerClient extends ApiClient {
 	public String updatePublicKey(String keyId, PublicKey key) {
 		String url = String.format(updateKeyURL, keyId);
 		log.info("updatePublicKey : " + url);
-		String keyString = helper.encodePublicKey(key);
+		String keyString = keyMaster.encodePublicKey(key);
 		log.info("key encoded : " + keyString);
-		utils.post(client, url, Void.class, keyString);
+		utils.post(client, url, String.class, keyString);
 		return keyId;
 	}
 
 	public String postPublicKey(PublicKey key) {
 		String url = postKeyURL;
 		log.info("postPublicKey : " + url);
-		String keyString = helper.encodePublicKey(key);
+		String keyString = keyMaster.encodePublicKey(key);
 		log.info("key encoded : " + keyString);
 		return utils.post(client, url, String.class, keyString);
 	}
@@ -58,7 +58,7 @@ public class KeysmithServerClient extends ApiClient {
 		String url = String.format(getKeyURL, keyId);
 		log.info("getPublicKey : " + url);
 		String keyString = utils.get(client, url, String.class);
-		PublicKey key = helper.decodePublicKey(keyString);
+		PublicKey key = keyMaster.decodePublicKey(keyString);
 		return key;
 	}
 
@@ -66,7 +66,7 @@ public class KeysmithServerClient extends ApiClient {
 		String url = String.format(removeKeyURL, keyId);
 		log.info("removePublicKey : " + url);
 		String keyString = utils.delete(client, url, String.class);
-		PublicKey key = helper.decodePublicKey(keyString);
+		PublicKey key = keyMaster.decodePublicKey(keyString);
 		return key;
 	}
 

@@ -1,6 +1,9 @@
 # Encoding algorithm
-algorithm: RSA
-cipherTransformation: RSA/ECB/PKCS1Padding
+publicKeyAlgorithm: RSA
+publicKeyTransformation: RSA/ECB/PKCS1Padding
+secretKeyAlgorithm: DESede
+secretKeyTransformation: DESede/CBC/PKCS5Padding
+secretSeed: some secret bytes
 
 # should be at least 512
 keySize: 1024
