@@ -1,4 +1,4 @@
-package keysmith.client;
+package keysmith.client.core;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,8 +15,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 
-import keysmith.client.client.Encoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,41 +108,8 @@ public class CryptographyHelper {
 		return null;
 	}
 
-	public String encrypt(String data, PublicKey key) {
-		try {
-			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			cipher.init(Cipher.ENCRYPT_MODE, key);
-
-			byte[] stringBytes = data.getBytes("UTF8");
-
-			// encrypt using the cypher
-			byte[] raw = cipher.doFinal(stringBytes);
-
-			String result = Encoder.encode(raw);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public String decrypt(String encrypted, PrivateKey key) {
-		try {
-			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			cipher.init(Cipher.DECRYPT_MODE, key);
-
-			byte[] raw = Encoder.decode(encrypted);
-
-			// decode the message
-			byte[] stringBytes = cipher.doFinal(raw);
-
-			// converts the decoded message to a String
-			String clear = new String(stringBytes, "UTF8");
-			return clear;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public Cipher getCipher() throws NoSuchAlgorithmException, NoSuchPaddingException {
+		return Cipher.getInstance(cipherTransformation);
 	}
 
 }

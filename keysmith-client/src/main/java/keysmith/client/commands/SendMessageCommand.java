@@ -3,9 +3,10 @@ package keysmith.client.commands;
 import java.security.PublicKey;
 
 import keysmith.client.KeysmithClientConfiguration;
-import keysmith.client.CryptographyHelper;
 import keysmith.client.client.KeysmithServerClient;
 import keysmith.client.client.MessengerServerClient;
+import keysmith.client.core.CryptographyController;
+import keysmith.client.core.CryptographyHelper;
 import keysmith.common.core.Message;
 import net.sourceforge.argparse4j.inf.Namespace;
 
@@ -24,11 +25,14 @@ public class SendMessageCommand extends
 
 	private CryptographyHelper helper;
 
+	private CryptographyController controller;
+
 	public SendMessageCommand(Service<KeysmithClientConfiguration> service,
 			CryptographyHelper helper) {
 		super(service, "send", "Encodes the message with the public key "
 				+ "from keysmith server and sends it to the messenger server");
 		this.helper = helper;
+		this.controller = new CryptographyController(helper);
 	}
 
 	@Override
@@ -46,11 +50,11 @@ public class SendMessageCommand extends
 		log.info("got public key:" + key);
 
 		log.info("encoding message...");
-		String encoded = helper.encrypt(message, key);
+		Message encoded = controller.publicEncrypt(message, key);
 		log.info("message encoded : " + encoded);
 
 		log.info("posting message to messenger server...");
-		messenger.postMessage(keyId, new Message(null, encoded));
+		messenger.postMessage(keyId, encoded);
 		log.info("message posted");
 	}
 

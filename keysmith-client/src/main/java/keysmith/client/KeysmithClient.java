@@ -3,6 +3,7 @@ package keysmith.client;
 import keysmith.client.commands.GenerateKeyCommand;
 import keysmith.client.commands.ReadMessageCommand;
 import keysmith.client.commands.SendMessageCommand;
+import keysmith.client.core.CryptographyHelper;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;

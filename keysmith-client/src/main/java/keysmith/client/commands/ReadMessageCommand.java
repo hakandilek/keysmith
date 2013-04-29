@@ -2,9 +2,10 @@ package keysmith.client.commands;
 
 import java.security.PrivateKey;
 
-import keysmith.client.CryptographyHelper;
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.MessengerServerClient;
+import keysmith.client.core.CryptographyController;
+import keysmith.client.core.CryptographyHelper;
 import keysmith.common.core.Message;
 import net.sourceforge.argparse4j.inf.Namespace;
 
@@ -23,10 +24,13 @@ public class ReadMessageCommand extends
 
 	private CryptographyHelper helper;
 
+	private CryptographyController controller;
+
 	public ReadMessageCommand(Service<KeysmithClientConfiguration> service,
 			CryptographyHelper helper) {
 		super(service, "read", "Reads a message from the server and decodes it with the previously stored private key");
 		this.helper = helper;
+		this.controller = new CryptographyController(helper);
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class ReadMessageCommand extends
 		log.info("private key loaded");
 		
 		log.info("decoding message...");
-		String message = helper.decrypt(encoded.getData(), key);
+		String message = controller.publicDecrypt(encoded, key);
 		log.info("message decoded:" + message);
 	}
 

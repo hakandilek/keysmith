@@ -1,4 +1,4 @@
-package keysmith.client.client;
+package keysmith.client.core;
 
 import com.google.common.io.BaseEncoding;
 

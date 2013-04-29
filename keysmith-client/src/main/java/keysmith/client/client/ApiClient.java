@@ -1,6 +1,7 @@
 package keysmith.client.client;
 
 import keysmith.client.KeysmithClientConfiguration;
+import keysmith.client.core.HttpUtils;
 
 import com.sun.jersey.api.client.Client;
 import com.yammer.dropwizard.client.JerseyClientBuilder;

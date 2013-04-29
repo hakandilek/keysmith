@@ -2,8 +2,8 @@ package keysmith.client.client;
 
 import java.security.PublicKey;
 
-import keysmith.client.CryptographyHelper;
 import keysmith.client.KeysmithClientConfiguration;
+import keysmith.client.core.CryptographyHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

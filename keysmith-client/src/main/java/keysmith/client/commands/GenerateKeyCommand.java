@@ -5,8 +5,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import keysmith.client.KeysmithClientConfiguration;
-import keysmith.client.CryptographyHelper;
 import keysmith.client.client.KeysmithServerClient;
+import keysmith.client.core.CryptographyHelper;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.slf4j.Logger;
