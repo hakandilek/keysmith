@@ -11,10 +11,6 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
-	private String keyId;
-
-	@Valid
-	@NotNull
 	private String message;
 
 	@Valid
@@ -56,14 +52,6 @@ public class KeysmithClientConfiguration extends Configuration {
 
 	public JerseyClientConfiguration getJerseyClientConfiguration() {
 		return httpClient;
-	}
-
-	public String getKeyId() {
-		return keyId;
-	}
-
-	public void setKeyId(String keyId) {
-		this.keyId = keyId;
 	}
 
 	public String getMessage() {

@@ -10,11 +10,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import keysmith.server.core.KeyStore;
+import keysmith.server.core.Keystore;
+import keysmith.server.core.SimpleKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.metrics.annotation.Timed;
 
 @Consumes(MediaType.APPLICATION_JSON)
@@ -25,9 +27,9 @@ public class KeysmithResource {
 	private static final Logger log = LoggerFactory
 			.getLogger(KeysmithResource.class);
 
-	private final KeyStore keyStore;
+	private final Keystore keyStore;
 
-	public KeysmithResource(KeyStore keyStore) {
+	public KeysmithResource(Keystore keyStore) {
 		super();
 		this.keyStore = keyStore;
 	}
@@ -35,20 +37,21 @@ public class KeysmithResource {
 	@GET
 	@Timed
 	@Path("/publicKey/{keyId}")
+	@UnitOfWork
 	public Response getPublicKey(@PathParam("keyId") String keyId) {
-		String key = keyStore.get(keyId);
+		SimpleKey key = keyStore.get(keyId);
 		if (key == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(key).build();
+		return Response.ok(key.getData()).build();
 	}
 
 	@POST
 	@Timed
 	@Path("/publicKey")
-	@Produces()
-	public Response postPublicKey(String key) {
-		String keyId = keyStore.put(key);
+	@UnitOfWork
+	public Response postPublicKey(String keyData) {
+		String keyId = keyStore.put(new SimpleKey(null, keyData));
 		if (keyId == null) {
 			return Response.noContent().build();
 		}
@@ -58,10 +61,12 @@ public class KeysmithResource {
 	@POST
 	@Timed
 	@Path("/publicKey/{keyId}")
-	public Response updatePublicKey(@PathParam("keyId") String keyId, String key) {
+	//@UnitOfWork
+	public Response updatePublicKey(@PathParam("keyId") String keyId, String keyData) {
+		SimpleKey key = new SimpleKey(keyId, keyData);
 		log.info("updatePublicKey.address : " + keyId);
 		log.info("updatePublicKey.message : " + key);
-		String oldKeyId = keyStore.update(keyId, key);
+		String oldKeyId = keyStore.put(key);
 		if (oldKeyId == null) {
 			return Response.noContent().build();
 		}
@@ -71,12 +76,13 @@ public class KeysmithResource {
 	@DELETE
 	@Timed
 	@Path("/publicKey/{keyId}")
+	@UnitOfWork
 	public Response removePublicKey(@PathParam("keyId") String keyId) {
-		String key = keyStore.remove(keyId);
+		SimpleKey key = keyStore.removeKey(keyId);
 		if (key == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(key).build();
+		return Response.ok(key.getData()).build();
 	}
 
 }

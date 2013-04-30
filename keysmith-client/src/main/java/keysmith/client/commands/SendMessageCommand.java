@@ -1,5 +1,7 @@
 package keysmith.client.commands;
 
+import java.io.File;
+import java.nio.charset.Charset;
 import java.security.PublicKey;
 
 import javax.crypto.SecretKey;
@@ -15,6 +17,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.Files;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.cli.EnvironmentCommand;
 import com.yammer.dropwizard.config.Environment;
@@ -40,7 +43,11 @@ public class SendMessageCommand extends
 	@Override
 	protected void run(Environment environment, Namespace namespace,
 			KeysmithClientConfiguration configuration) throws Exception {
-		String keyId = configuration.getKeyId();
+		log.info("reading keyId...");
+		String keyId = Files.toString(new File(".keyId"),
+				Charset.defaultCharset());
+		log.info("keyId read.");
+
 		String message = configuration.getMessage();
 		KeysmithServerClient keysmith = new KeysmithServerClient(environment,
 				configuration, keyMaster);
