@@ -1,4 +1,4 @@
-package keysmith.server.core;
+package keysmith.service.core;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;

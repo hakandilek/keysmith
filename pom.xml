@@ -12,5 +12,6 @@
         <module>keysmith-common</module>
 		<module>keysmith-client</module>
 		<module>keysmith-messenger</module>
+		<module>keysmith-service</module>
 	</modules>
 </project>

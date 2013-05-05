@@ -1,4 +1,4 @@
-package keysmith.server;
+package keysmith.service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 
-public class KeysmithServiceConfiguration extends Configuration {
+public class KeysmithConfiguration extends Configuration {
 
 	@Valid
 	@NotNull

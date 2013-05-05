@@ -1,7 +1,7 @@
-package keysmith.server.db;
+package keysmith.service.db;
 
-import keysmith.server.core.Keystore;
-import keysmith.server.core.SimpleKey;
+import keysmith.service.core.Keystore;
+import keysmith.service.core.SimpleKey;
 
 import org.hibernate.SessionFactory;
 

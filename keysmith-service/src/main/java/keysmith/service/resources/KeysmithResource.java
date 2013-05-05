@@ -1,4 +1,4 @@
-package keysmith.server.resources;
+package keysmith.service.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,8 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import keysmith.server.core.Keystore;
-import keysmith.server.core.SimpleKey;
+import keysmith.service.core.Keystore;
+import keysmith.service.core.SimpleKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
