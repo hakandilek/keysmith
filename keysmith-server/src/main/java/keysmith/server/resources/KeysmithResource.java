@@ -61,7 +61,7 @@ public class KeysmithResource {
 	@POST
 	@Timed
 	@Path("/publicKey/{keyId}")
-	//@UnitOfWork
+	@UnitOfWork
 	public Response updatePublicKey(@PathParam("keyId") String keyId, String keyData) {
 		SimpleKey key = new SimpleKey(keyId, keyData);
 		log.info("updatePublicKey.address : " + keyId);
