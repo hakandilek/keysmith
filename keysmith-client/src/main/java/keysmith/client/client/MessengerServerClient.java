@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yammer.dropwizard.config.Environment;
 
-public class MessengerServerClient extends ApiClient {
+public class MessengerServerClient extends ApiClient<KeysmithClientConfiguration> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(MessengerServerClient.class);

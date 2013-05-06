@@ -4,7 +4,7 @@
 	<groupId>keysmith</groupId>
 	<artifactId>keysmith</artifactId>
 	<packaging>pom</packaging>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>keysmith</name>
 	
 	<modules>
@@ -13,5 +13,6 @@
 		<module>keysmith-client</module>
 		<module>keysmith-messenger</module>
 		<module>keysmith-service</module>
+		<module>dropwizard-module</module>
 	</modules>
 </project>

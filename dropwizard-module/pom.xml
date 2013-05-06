@@ -6,28 +6,17 @@
 		<groupId>keysmith</groupId>
 		<version>0.2.0-SNAPSHOT</version>
 	</parent>
+	<artifactId>dropwizard-module</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
 	<properties>
 		<project.custom.java.version>1.6</project.custom.java.version>
 		<maven.compiler.source>${project.custom.java.version}</maven.compiler.source>
 		<maven.compiler.target>${project.custom.java.version}</maven.compiler.target>
 	</properties>
-	<artifactId>keysmith-service</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
 	<dependencies>
-        <dependency>
-            <groupId>keysmith</groupId>
-            <artifactId>dropwizard-module</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
 		<dependency>
 			<groupId>com.yammer.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>
-			<version>0.6.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.yammer.dropwizard</groupId>
-			<artifactId>dropwizard-hibernate</artifactId>
 			<version>0.6.2</version>
 		</dependency>
 		<dependency>

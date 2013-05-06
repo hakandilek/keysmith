@@ -13,4 +13,4 @@ message: Hello World!
 
 # servers to use
 keysmithServer: http://localhost:8080
-messengerServer: http://localhost:8090
+messengerServer: http://localhost:8080

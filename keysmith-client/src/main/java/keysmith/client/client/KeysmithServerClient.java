@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.sun.jersey.api.client.Client;
 import com.yammer.dropwizard.config.Environment;
 
-public class KeysmithServerClient extends ApiClient {
+public class KeysmithServerClient extends ApiClient<KeysmithClientConfiguration> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(KeysmithServerClient.class);

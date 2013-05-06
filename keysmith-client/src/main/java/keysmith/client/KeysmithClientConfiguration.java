@@ -3,11 +3,12 @@ package keysmith.client;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import keysmith.client.client.ClientConfiguration;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.client.JerseyClientConfiguration;
-import com.yammer.dropwizard.config.Configuration;
 
-public class KeysmithClientConfiguration extends Configuration {
+public class KeysmithClientConfiguration extends ClientConfiguration {
 
 	@Valid
 	@NotNull
