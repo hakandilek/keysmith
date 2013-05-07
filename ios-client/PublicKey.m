@@ -10,10 +10,13 @@
 @implementation PublicKey
 
 @synthesize keyData;
-- (id)init: (NSData*) data {
+@synthesize keyRef;
+
+- (id)init: (NSData*) data andRef:(SecKeyRef) kr {
     self = [super init];
     if (self) {
         keyData = [data retain];
+        keyRef = kr;
     }
     return self;
 }

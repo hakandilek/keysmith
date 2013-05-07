@@ -9,4 +9,18 @@
 
 @implementation PrivateKey
 
+@synthesize keyRef;
+
+- (id)init:(SecKeyRef) kr {
+    self = [super init];
+    if (self) {
+        keyRef = kr;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    
+    [super dealloc];
+}
 @end

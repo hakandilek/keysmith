@@ -40,7 +40,7 @@
         return Nil;
     
     // decode data
-    publicKey = [KeyMaster decodePublicKey:result];
+    publicKey = [[KeyMaster decodePublicKey:result] retain];
     
     [publicKey autorelease];
     return publicKey;
@@ -94,7 +94,7 @@
     log(@"result : %@", result);
     
     // decode data
-    publicKey = [KeyMaster decodePublicKey:result];
+    publicKey = [[KeyMaster decodePublicKey:result] retain];
     
     [publicKey autorelease];
     return publicKey;
