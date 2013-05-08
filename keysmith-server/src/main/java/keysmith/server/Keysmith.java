@@ -1,9 +1,9 @@
 package keysmith.server;
 
-import keysmith.server.core.Keystore;
-import keysmith.server.db.KeysmithHibernateBundle;
-import keysmith.server.db.SimpleKeyDAO;
-import keysmith.server.resources.KeysmithResource;
+import keysmith.service.core.Keystore;
+import keysmith.service.db.KeysmithHibernateBundle;
+import keysmith.service.db.SimpleKeyDAO;
+import keysmith.service.resources.KeysmithResource;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
