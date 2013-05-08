@@ -2,4 +2,5 @@ target/
 .settings
 *.privateKey
 .keyId
+db
 /db

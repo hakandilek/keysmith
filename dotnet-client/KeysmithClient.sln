@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keysmith.Client.Lib", "Keysmith.Client.Lib\Keysmith.Client.Lib.csproj", "{3AAA0398-4CDC-4748-A54B-7CB93FF761DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keysmith.Client.Test", "Keysmith.Client.Test\Keysmith.Client.Test.csproj", "{8C844F58-2496-44F4-A9A9-121DEC4098A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AAA0398-4CDC-4748-A54B-7CB93FF761DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AAA0398-4CDC-4748-A54B-7CB93FF761DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AAA0398-4CDC-4748-A54B-7CB93FF761DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AAA0398-4CDC-4748-A54B-7CB93FF761DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C844F58-2496-44F4-A9A9-121DEC4098A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C844F58-2496-44F4-A9A9-121DEC4098A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C844F58-2496-44F4-A9A9-121DEC4098A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C844F58-2496-44F4-A9A9-121DEC4098A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
