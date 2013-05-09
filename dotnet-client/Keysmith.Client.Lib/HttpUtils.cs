@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="HttpUtils.cs" company="Hakan Dilek">
+//   (c) 2013 Hakan Dilek
+// </copyright>
+// <summary>
+//   The http utils.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Keysmith.Client.Lib
 {
     using System;
@@ -7,12 +15,15 @@ namespace Keysmith.Client.Lib
 
     using log4net;
 
+    /// <summary>
+    /// The http utils.
+    /// </summary>
     public class HttpUtils
     {
         /// <summary>
         /// The log.
         /// </summary>
-        private readonly static ILog log = LogManager.GetLogger(typeof(HttpUtils));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(HttpUtils));
 
         /// <summary>
         ///  raw POST request.
@@ -28,25 +39,32 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public static string PostRaw(string url, string postData)
         {
+            string result = null;
             var request = WebRequest.Create(url) as HttpWebRequest;
-            request.ContentType = "application/json";
-            request.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            if (request != null)
             {
-                streamWriter.Write(postData);
-                streamWriter.Flush();
-                streamWriter.Close();
+                request.ContentType = "application/json";
+                request.Method = "POST";
 
-                string result = null;
-                var response = (HttpWebResponse)request.GetResponse();
-                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    result = streamReader.ReadToEnd();
-                }
+                    streamWriter.Write(postData);
+                    streamWriter.Flush();
+                    streamWriter.Close();
 
-                return result;
+                    var response = (HttpWebResponse)request.GetResponse();
+                    var rs = response.GetResponseStream();
+                    if (rs != null)
+                    {
+                        using (var streamReader = new StreamReader(rs))
+                        {
+                            result = streamReader.ReadToEnd();
+                        }
+                    }
+                }
             }
+
+            return result;
         }
 
         /// <summary>
@@ -64,7 +82,7 @@ namespace Keysmith.Client.Lib
             {
                 string ret = null;
 
-                var webReq = System.Net.WebRequest.Create(url) as HttpWebRequest;
+                var webReq = WebRequest.Create(url) as HttpWebRequest;
                 if (webReq != null)
                 {
                     webReq.Method = "GET";
@@ -76,14 +94,17 @@ namespace Keysmith.Client.Lib
                     {
                         var result = (HttpWebResponse)webReq.GetResponse();
                         var resStream = result.GetResponseStream();
-                        var reader = new StreamReader(resStream);
-                        ret = reader.ReadToEnd();
+                        if (resStream != null)
+                        {
+                            var reader = new StreamReader(resStream);
+                            ret = reader.ReadToEnd();
+                        }
                     }
                     catch (Exception e)
                     {
-                        if (log.IsErrorEnabled)
+                        if (Log.IsErrorEnabled)
                         {
-                            log.Error("Exception on request", e);
+                            Log.Error("Exception on request", e);
                         }
                     }
                 }
@@ -98,26 +119,39 @@ namespace Keysmith.Client.Lib
                     var msg = "Authentication Failed, " + hresp.StatusCode + "\r\n" +
                                  "Status Code: " + (int)hresp.StatusCode + "\r\n" +
                                  "Status Description: " + hresp.StatusDescription;
-                    if (log.IsErrorEnabled)
-                        log.Error(msg);
+                    if (Log.IsErrorEnabled)
+                    {
+                        Log.Error(msg);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                if (log.IsErrorEnabled)
-                    log.ErrorFormat("error occured:{0}", ex);
+                if (Log.IsErrorEnabled)
+                {
+                    Log.ErrorFormat("error occured:{0}", ex);
+                }
             }
-            return "";
+
+            return string.Empty;
         }
 
-
+        /// <summary>
+        /// The delete raw.
+        /// </summary>
+        /// <param name="url">
+        /// The url.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string DeleteRaw(string url)
         {
             try
             {
                 string ret = null;
 
-                var webReq = System.Net.WebRequest.Create(url) as HttpWebRequest;
+                var webReq = WebRequest.Create(url) as HttpWebRequest;
                 if (webReq != null)
                 {
                     webReq.Method = "DELETE";
@@ -129,14 +163,17 @@ namespace Keysmith.Client.Lib
                     {
                         var result = (HttpWebResponse)webReq.GetResponse();
                         var resStream = result.GetResponseStream();
-                        var reader = new StreamReader(resStream);
-                        ret = reader.ReadToEnd();
+                        if (resStream != null)
+                        {
+                            var reader = new StreamReader(resStream);
+                            ret = reader.ReadToEnd();
+                        }
                     }
                     catch (Exception e)
                     {
-                        if (log.IsErrorEnabled)
+                        if (Log.IsErrorEnabled)
                         {
-                            log.Error("Exception on request", e);
+                            Log.Error("Exception on request", e);
                         }
                     }
                 }
@@ -151,16 +188,21 @@ namespace Keysmith.Client.Lib
                     var msg = "Authentication Failed, " + hresp.StatusCode + "\r\n" +
                                  "Status Code: " + (int)hresp.StatusCode + "\r\n" +
                                  "Status Description: " + hresp.StatusDescription;
-                    if (log.IsErrorEnabled)
-                        log.Error(msg);
+                    if (Log.IsErrorEnabled)
+                    {
+                        Log.Error(msg);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                if (log.IsErrorEnabled)
-                    log.ErrorFormat("error occured:{0}", ex);
+                if (Log.IsErrorEnabled)
+                {
+                    Log.ErrorFormat("error occured:{0}", ex);
+                }
             }
-            return "";
+
+            return string.Empty;
         }
     }
 }
