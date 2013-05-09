@@ -4,7 +4,7 @@ import com.google.common.io.BaseEncoding;
 
 public class Encoder {
 
-	protected static final BaseEncoding ENCODING = BaseEncoding.base64Url();
+	protected static final BaseEncoding ENCODING = BaseEncoding.base64();
 
 	public static String encode(byte[] data) {
 		return ENCODING.encode(data);
