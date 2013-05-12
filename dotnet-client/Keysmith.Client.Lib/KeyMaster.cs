@@ -91,5 +91,21 @@ namespace Keysmith.Client.Lib
             return this.GenerateKeyPair(1024);
         }
         #endregion
+
+        public string EncodeSecretKey(SecretKey key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SecretKey DecodeSecretKey(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SecretKey GenerateSecretKey()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

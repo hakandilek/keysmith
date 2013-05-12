@@ -52,6 +52,7 @@
     <Compile Include="KeyMasterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KeysmithClientTest.cs" />
+    <Compile Include="CryptographerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Keysmith.Client.Lib\Keysmith.Client.Lib.csproj">

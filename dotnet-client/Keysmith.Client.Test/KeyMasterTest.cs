@@ -7,9 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace Keysmith.Client.Test
 {
-    using Keysmith.Client.Lib;
+    using Lib;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -44,5 +46,24 @@ namespace Keysmith.Client.Test
             Assert.IsNotNull(encoded);
             Assert.AreNotSame(string.Empty, encoded);
         }
+
+        [TestMethod]
+        public void EncodeSecretKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void DecodeSecretKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GenerateSecretKey()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
