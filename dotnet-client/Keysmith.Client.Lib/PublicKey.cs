@@ -44,5 +44,50 @@ namespace Keysmith.Client.Lib
         {
             return SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(this.publicKeyParam);
         }
+
+        /// <summary>
+        /// The get hash code.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return this.publicKeyParam != null ? this.publicKeyParam.GetHashCode() : 0;
+        }
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var other = obj as PublicKey;
+            return this.Equals(other);
+        }
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">
+        /// The other.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        protected bool Equals(PublicKey other)
+        {
+            return this.publicKeyParam.Equals(other.publicKeyParam);
+        }
     }
 }
