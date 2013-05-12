@@ -1,44 +1,84 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CryptographerTest.cs" company="Hakan Dilek">
+//   (c) 2013 Hakan Dilek
+// </copyright>
+// <summary>
+//   The cryptographer test.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Keysmith.Client.Test
 {
+    using Keysmith.Client.Lib;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// The cryptographer test.
+    /// </summary>
     [TestClass]
     public class CryptographerTest
     {
-        [TestMethod]
-        public void PublicEncrypt()
+        /// <summary>
+        /// The test for public encrypt and decrypt.
+        /// </summary>
+        public void PublicEncryptDecrypt()
         {
-            Assert.Fail();
+            var km = new KeyMaster();
+            var c = new Cryptographer(km);
+
+            KeyPair kp = km.GenerateKeyPair();
+
+            var msg = c.PublicEncrypt("test", kp.PublicKey);
+            Assert.IsNotNull(msg);
+            Assert.IsNotNull(msg.Data);
+            Assert.IsNull(msg.Key);
+
+            var test = c.PublicDecrypt(msg, kp.PrivateKey);
+            Assert.IsNotNull(test);
+            Assert.AreEqual("test", test);
         }
 
+        /// <summary>
+        /// The test for symmetric encrypt and decrypt.
+        /// </summary>
         [TestMethod]
-        public void PublicDecrypt()
+        public void SymmetricEncryptDecrypt()
         {
-            Assert.Fail();
+            var km = new KeyMaster();
+            var c = new Cryptographer(km);
+
+            SecretKey key = km.GenerateSecretKey();
+
+            var msg = c.SymmetricEncrypt("test", key);
+            Assert.IsNotNull(msg);
+            Assert.IsNotNull(msg.Data);
+            Assert.IsNotNull(msg.Key);
+
+            var test = c.SymmetricDecrypt(msg);
+            Assert.IsNotNull(test);
+            Assert.AreEqual("test", test);
         }
 
+        /// <summary>
+        /// The test for hybrid encrypt and decrypt.
+        /// </summary>
         [TestMethod]
-        public void SymmetricEncrypt()
+        public void HybridEncryptDecrypt()
         {
-            Assert.Fail();
-        }
+            var km = new KeyMaster();
+            var c = new Cryptographer(km);
 
-        [TestMethod]
-        public void SymmetricDecrypt()
-        {
-            Assert.Fail();
-        }
+            KeyPair kp = km.GenerateKeyPair();
 
-        [TestMethod]
-        public void HybridEncrypt()
-        {
-            Assert.Fail();
-        }
+            var msg = c.HybridEncrypt("test", kp.PublicKey);
+            Assert.IsNotNull(msg);
+            Assert.IsNotNull(msg.Data);
+            Assert.IsNull(msg.Key);
 
-        [TestMethod]
-        public void HybridDecrypt()
-        {
-            Assert.Fail();
+            var test = c.HybridDecrypt(msg, kp.PrivateKey);
+            Assert.IsNotNull(test);
+            Assert.AreEqual("test", test);
         }
     }
 }
