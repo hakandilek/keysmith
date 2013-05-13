@@ -22,6 +22,7 @@ namespace Keysmith.Client.Test
         /// <summary>
         /// The test for public encrypt and decrypt.
         /// </summary>
+        [TestMethod]
         public void PublicEncryptDecrypt()
         {
             var km = new KeyMaster();

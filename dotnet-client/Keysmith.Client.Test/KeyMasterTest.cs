@@ -32,6 +32,7 @@ namespace Keysmith.Client.Test
                 "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCb1TXuuj1RESupASrVzk0U51oIPRaZVfdWPZo/VOljHTcfNl1/boHsp+IylC/tcVP9MYwiD5IQye78MjOQZ72rpJZMirmjE1P3mrckDFg1MexxsGn6/JRWWgh/AuN2T4/qkv5FXQvBxtLiaH9p4iV6lgCcTPEWZYMbpF4oiL4FwwIDAQAB";
             SecretKey sk = keyMaster.DecodeSecretKey(KeyString);
             Assert.IsNotNull(sk);
+            Assert.IsNotNull(sk.GetBytes());
         }
 
         /// <summary>
@@ -45,6 +46,22 @@ namespace Keysmith.Client.Test
             string encoded = keyMaster.EncodeSecretKey(sk);
             Assert.IsNotNull(encoded);
             Assert.AreNotSame(string.Empty, encoded);
+        }
+
+        /// <summary>
+        /// The encode decode secret key.
+        /// </summary>
+        [TestMethod]
+        public void EncodeDecodeSecretKey()
+        {
+            var keyMaster = new KeyMaster();
+            SecretKey sk = keyMaster.GenerateSecretKey();
+            string encoded = keyMaster.EncodeSecretKey(sk);
+            Assert.IsNotNull(encoded);
+
+            SecretKey sk2 = keyMaster.DecodeSecretKey(encoded);
+            Assert.IsNotNull(sk2);
+            Assert.AreEqual(sk, sk2);
         }
 
         /// <summary>
@@ -82,6 +99,22 @@ namespace Keysmith.Client.Test
             string encoded = keyMaster.EncodePublicKey(pk);
             Assert.IsNotNull(encoded);
             Assert.AreNotSame(string.Empty, encoded);
+        }
+
+        /// <summary>
+        /// The test encode decode public key.
+        /// </summary>
+        [TestMethod]
+        public void TestEncodeDecodePublicKey()
+        {
+            var keyMaster = new KeyMaster();
+            PublicKey pk = keyMaster.GenerateKeyPair().PublicKey;
+            string encoded = keyMaster.EncodePublicKey(pk);
+            Assert.IsNotNull(encoded);
+
+            var pk2 = keyMaster.DecodePublicKey(encoded);
+            Assert.IsNotNull(pk2);
+            Assert.AreEqual(pk, pk2);
         }
 
         #endregion

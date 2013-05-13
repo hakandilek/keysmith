@@ -11,10 +11,10 @@ namespace Keysmith.Client.Lib
 {
     using System;
 
+    using Org.BouncyCastle.Asn1.X509;
     using Org.BouncyCastle.Crypto;
     using Org.BouncyCastle.Crypto.Generators;
     using Org.BouncyCastle.Crypto.Parameters;
-    using Org.BouncyCastle.Math;
     using Org.BouncyCastle.Security;
 
     /// <summary>
@@ -51,8 +51,9 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public string EncodePublicKey(PublicKey key)
         {
-            var data = key.GetPublicKeyInfo().PublicKeyData.GetBytes();
-            var encoded = Convert.ToBase64String(data);
+            SubjectPublicKeyInfo publicKeyInfo = key.GetPublicKeyInfo();
+            byte[] data = publicKeyInfo.ToAsn1Object().GetDerEncoded();
+            string encoded = Convert.ToBase64String(data);             
             return encoded;
         }
 
@@ -67,16 +68,10 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public KeyPair GenerateKeyPair(int keySize)
         {
-            var r = new RsaKeyPairGenerator();
-            BigInteger exponentBigInt = new BigInteger("10001", 16);
-            var param = new RsaKeyGenerationParameters(
-                exponentBigInt, // new BigInteger("10001", 16)  publicExponent
-                new SecureRandom(),  // SecureRandom.getInstance("SHA1PRNG"),//prng
-                keySize, // strength
-                80); // certainty
-            r.Init(param);
-            var kp = r.GenerateKeyPair();
-            var keyPair = new KeyPair { PublicKey = new PublicKey(kp.Public), PrivateKey = new PrivateKey() };
+            var g = new RsaKeyPairGenerator();
+            g.Init(new KeyGenerationParameters(new SecureRandom(), keySize));
+            var kp = g.GenerateKeyPair();
+            var keyPair = new KeyPair { PublicKey = new PublicKey(kp.Public), PrivateKey = new PrivateKey(kp.Private) };
             return keyPair;
         }
 
@@ -90,22 +85,60 @@ namespace Keysmith.Client.Lib
         {
             return this.GenerateKeyPair(1024);
         }
-        #endregion
 
+        /// <summary>
+        /// The encode secret key.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public string EncodeSecretKey(SecretKey key)
         {
-            throw new NotImplementedException();
+            var data = key.GetBytes();
+            var encoded = Convert.ToBase64String(data);
+            return encoded;
         }
 
+        /// <summary>
+        /// The decode secret key.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// The <see cref="SecretKey"/>.
+        /// </returns>
         public SecretKey DecodeSecretKey(string key)
         {
-            throw new NotImplementedException();
+            byte[] data = Convert.FromBase64String(key);
+            return new SecretKey(data);
         }
 
+        /// <summary>
+        /// The generate secret key.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="SecretKey"/>.
+        /// </returns>
         public SecretKey GenerateSecretKey()
         {
-            throw new NotImplementedException();
+            KeyGenerationParameters kgp = new KeyGenerationParameters(
+                new SecureRandom(), 
+                DesEdeParameters.DesEdeKeyLength * 8);
+
+            var kg = new DesEdeKeyGenerator();
+            kg.Init(kgp);
+
+            /*
+            * Third, and finally, generate the key
+            */
+            var key = new SecretKey(kg.GenerateKey());
+            return key;
         }
 
+        #endregion
     }
 }
