@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Cryptographer.cs" company="">
-//   
+// <copyright file="Cryptographer.cs" company="Hakan Dilek">
+//   (c) 2013 Hakan Dilek
 // </copyright>
 // <summary>
 //   The cryptographer.
@@ -9,10 +9,13 @@
 namespace Keysmith.Client.Lib
 {
     using System;
-    using System.Collections.Generic;
+    using System.Text;
 
-    using Org.BouncyCastle.Crypto;
+    using Org.BouncyCastle.Crypto.Encodings;
     using Org.BouncyCastle.Crypto.Engines;
+    using Org.BouncyCastle.Crypto.Modes;
+    using Org.BouncyCastle.Crypto.Paddings;
+    using Org.BouncyCastle.Crypto.Parameters;
 
     /// <summary>
     ///     The cryptographer.
@@ -59,9 +62,9 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public string HybridDecrypt(Message crypted, PrivateKey key)
         {
-            string secretKeyData = Decrypt(crypted.Key, key);
+            string secretKeyData = this.Decrypt(crypted.Key, key);
             SecretKey secretKey = this.keyMaster.DecodeSecretKey(secretKeyData);
-            string message = Decrypt(crypted.Data, secretKey);
+            string message = this.Decrypt(crypted.Data, secretKey);
             return message;
         }
 
@@ -163,38 +166,23 @@ namespace Keysmith.Client.Lib
         /// <param name="encrypted">
         /// The encrypted.
         /// </param>
-        /// <param name="key">
-        /// The key.
+        /// <param name="pk">
+        /// The pk.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        private string Decrypt(string encrypted, PrivateKey key)
+        private string Decrypt(string encrypted, PrivateKey pk)
         {
-            // TODO
-            throw new NotImplementedException();
-        }
+            var keyParam = pk.GetPrivateKeyParam();
+            var engine = new Pkcs1Encoding(new RsaEngine());
+            engine.Init(false, keyParam);
+            var blockSize = engine.GetInputBlockSize();
 
-        /// <summary>
-        /// The decrypt.
-        /// </summary>
-        /// <param name="encrypted">
-        /// The encrypted.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        private string Decrypt(string encrypted, SecretKey key)
-        {
-            // TODO
-            throw new NotImplementedException();
+            byte[] bytes = Convert.FromBase64String(encrypted);
+            byte[] dec = engine.ProcessBlock(bytes, 0, blockSize);
+            var clear = this.ToUTF8String(dec);
+            return clear;
         }
 
         /// <summary>
@@ -229,25 +217,13 @@ namespace Keysmith.Client.Lib
         /// </returns>
         private string Encrypt(string data, PublicKey pk)
         {
-            pk.GetPublicKeyInfo();
-            /*
-            AsymmetricKeyParameter key = pk.GetPublicKeyInfo();
-            var e = new RsaEngine();
-            e.Init(true, key);
-
-            int blockSize = e.GetInputBlockSize();
-
-            var output = new List<byte>();
-
-            for (int chunkPosition = 0; chunkPosition < data.Length; chunkPosition += blockSize)
-            {
-                int chunkSize = Math.Min(blockSize, data.Length - (chunkPosition * blockSize));
-                output.AddRange(e.ProcessBlock(data, chunkPosition, chunkSize));
-            }
-
-            return output.ToArray();
-            */
-            throw new NotImplementedException();
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            var keyParam = pk.GetPublicKeyParam();
+            var engine = new Pkcs1Encoding(new RsaEngine());
+            engine.Init(true, keyParam);
+            var blockSize = bytes.Length;// engine.GetInputBlockSize();
+            byte[] enc = engine.ProcessBlock(bytes, 0, blockSize);
+            return Convert.ToBase64String(enc);
         }
 
         /// <summary>
@@ -262,12 +238,81 @@ namespace Keysmith.Client.Lib
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
         private string Encrypt(string data, SecretKey key)
         {
-            // TODO
-            throw new NotImplementedException();
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+
+            // Setup the DESede cipher engine, create a PaddedBufferedBlockCipher in CBC mode.
+            byte[] keyBytes = key.GetBytes();
+            var cipher = new PaddedBufferedBlockCipher(new CbcBlockCipher(new DesEdeEngine()));
+
+            // initialise the cipher with the key bytes, for encryption
+            cipher.Init(true, new KeyParameter(keyBytes));
+
+            int inBlockSize = bytes.Length;
+            int outBlockSize = cipher.GetOutputSize(inBlockSize);
+
+            var inblock = bytes;
+            var outblock = new byte[outBlockSize];
+
+            cipher.ProcessBytes(inblock, 0, inBlockSize, outblock, 0);
+            cipher.DoFinal(outblock, 0);
+
+            return Convert.ToBase64String(outblock);
+        }
+
+        /// <summary>
+        /// The decrypt.
+        /// </summary>
+        /// <param name="encrypted">
+        /// The encrypted.
+        /// </param>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string Decrypt(string encrypted, SecretKey key)
+        {
+            byte[] bytes = Convert.FromBase64String(encrypted);
+            byte[] keyBytes = key.GetBytes();
+
+            // initialise the cipher for decryption
+            var cipher = new PaddedBufferedBlockCipher(new CbcBlockCipher(new DesEdeEngine()));
+            cipher.Init(false, new KeyParameter(keyBytes));
+
+            int inBlockSize = bytes.Length;
+            int outBlockSize = cipher.GetOutputSize(inBlockSize);
+
+            var inblock = bytes;
+            var outblock = new byte[outBlockSize];
+
+            cipher.ProcessBytes(inblock, 0, inBlockSize, outblock, 0);
+            cipher.DoFinal(outblock, 0);
+
+            var clear = this.ToUTF8String(outblock);
+            return clear;
+        }
+
+        /// <summary>
+        /// The to ut f 8 string.
+        /// </summary>
+        /// <param name="bytes">
+        /// The bytes.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string ToUTF8String(byte[] bytes)
+        {
+            var len = Array.IndexOf(bytes, (byte)0);
+            if (len < 0)
+            {
+                return Encoding.UTF8.GetString(bytes);
+            }
+
+            return Encoding.UTF8.GetString(bytes, 0, len);
         }
 
         #endregion

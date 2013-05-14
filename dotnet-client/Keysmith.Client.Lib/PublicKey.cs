@@ -1,12 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PublicKey.cs" company="Hakan Dilek">
-//   (c) 2003 
+// <copyright file="PublicKey.cs" company="">
+//   
 // </copyright>
 // <summary>
 //   The public key.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Keysmith.Client.Lib
 {
     using Org.BouncyCastle.Asn1.X509;
@@ -14,14 +13,20 @@ namespace Keysmith.Client.Lib
     using Org.BouncyCastle.X509;
 
     /// <summary>
-    /// The public key.
+    ///     The public key.
     /// </summary>
     public class PublicKey
     {
+        #region Fields
+
         /// <summary>
-        /// The public key parameter
+        ///     The public key parameter
         /// </summary>
         private readonly AsymmetricKeyParameter publicKeyParam;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PublicKey"/> class.
@@ -34,27 +39,9 @@ namespace Keysmith.Client.Lib
             this.publicKeyParam = publicKeyParam;
         }
 
-        /// <summary>
-        /// The get public key info.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="SubjectPublicKeyInfo"/>.
-        /// </returns>
-        public SubjectPublicKeyInfo GetPublicKeyInfo()
-        {
-            return SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(this.publicKeyParam);
-        }
+        #endregion
 
-        /// <summary>
-        /// The get hash code.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public override int GetHashCode()
-        {
-            return this.publicKeyParam != null ? this.publicKeyParam.GetHashCode() : 0;
-        }
+        #region Public Methods and Operators
 
         /// <summary>
         /// The equals.
@@ -67,7 +54,7 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if (obj == null || this.GetType() != obj.GetType())
             {
                 return false;
             }
@@ -75,6 +62,43 @@ namespace Keysmith.Client.Lib
             var other = obj as PublicKey;
             return this.Equals(other);
         }
+
+        /// <summary>
+        ///     The get hash code.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="int" />.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return this.publicKeyParam != null ? this.publicKeyParam.GetHashCode() : 0;
+        }
+
+        /// <summary>
+        ///     The get public key info.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="SubjectPublicKeyInfo" />.
+        /// </returns>
+        public SubjectPublicKeyInfo GetPublicKeyInfo()
+        {
+            return SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(this.publicKeyParam);
+        }
+
+        /// <summary>
+        ///     The get public key param.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="AsymmetricKeyParameter" />.
+        /// </returns>
+        public AsymmetricKeyParameter GetPublicKeyParam()
+        {
+            return this.publicKeyParam;
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// The equals.
@@ -89,5 +113,7 @@ namespace Keysmith.Client.Lib
         {
             return this.publicKeyParam.Equals(other.publicKeyParam);
         }
+
+        #endregion
     }
 }

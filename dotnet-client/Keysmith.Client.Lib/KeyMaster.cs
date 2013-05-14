@@ -6,7 +6,6 @@
 //   The key master.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Keysmith.Client.Lib
 {
     using System;
@@ -53,7 +52,7 @@ namespace Keysmith.Client.Lib
         {
             SubjectPublicKeyInfo publicKeyInfo = key.GetPublicKeyInfo();
             byte[] data = publicKeyInfo.ToAsn1Object().GetDerEncoded();
-            string encoded = Convert.ToBase64String(data);             
+            string encoded = Convert.ToBase64String(data);
             return encoded;
         }
 
@@ -71,7 +70,9 @@ namespace Keysmith.Client.Lib
             var g = new RsaKeyPairGenerator();
             g.Init(new KeyGenerationParameters(new SecureRandom(), keySize));
             var kp = g.GenerateKeyPair();
-            var keyPair = new KeyPair { PublicKey = new PublicKey(kp.Public), PrivateKey = new PrivateKey(kp.Private) };
+            var puk = new PublicKey(kp.Public);
+            var prk = new PrivateKey(kp.Private);
+            var keyPair = new KeyPair { PublicKey = puk, PrivateKey = prk };
             return keyPair;
         }
 
@@ -125,16 +126,9 @@ namespace Keysmith.Client.Lib
         /// </returns>
         public SecretKey GenerateSecretKey()
         {
-            KeyGenerationParameters kgp = new KeyGenerationParameters(
-                new SecureRandom(), 
-                DesEdeParameters.DesEdeKeyLength * 8);
-
+            var kgp = new KeyGenerationParameters(new SecureRandom(), DesEdeParameters.DesEdeKeyLength * 8);
             var kg = new DesEdeKeyGenerator();
             kg.Init(kgp);
-
-            /*
-            * Third, and finally, generate the key
-            */
             var key = new SecretKey(kg.GenerateKey());
             return key;
         }

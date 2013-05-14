@@ -75,7 +75,7 @@ namespace Keysmith.Client.Test
             var msg = c.HybridEncrypt("test", kp.PublicKey);
             Assert.IsNotNull(msg);
             Assert.IsNotNull(msg.Data);
-            Assert.IsNull(msg.Key);
+            Assert.IsNotNull(msg.Key);
 
             var test = c.HybridDecrypt(msg, kp.PrivateKey);
             Assert.IsNotNull(test);
