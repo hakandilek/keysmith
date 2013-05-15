@@ -10,6 +10,9 @@
 
 @implementation KeyMaster
 
+static int PUBLIC_KEY_SIZE = 2048;
+static int PRIVATE_KEY_SIZE = 112;
+
 +(NSData*) publicKeyTag {
     static NSData* pubKey = nil;
     if (pubKey == nil) {
@@ -98,11 +101,11 @@
     return encoded;
 }
 
-+ (KeyPair*) generateKeyPair {
++ (KeyPair*) generateKeyPairSize: (int) size {
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
     OSStatus sanityCheck = noErr;
-    int keySize = PUBLIC_KEY_SIZE;
+    int keySize = size;
     NSData* privateTag  = KeyMaster.privateKeyTag;
     NSData* publicTag = KeyMaster.publicKeyTag;
     
@@ -149,6 +152,10 @@
     return kp;
 }
 
++ (KeyPair*) generateKeyPair {
+    return [[self class] generateKeyPairSize:PUBLIC_KEY_SIZE];
+}
+
 + (PublicKey *) getPublicKey {
 	OSStatus sanityCheck = noErr;
 	NSData * publicKeyBits = nil;
@@ -187,5 +194,20 @@
 }
  */
 
++ (SecretKey*) generateSecretKey {
+	// TODO:
+    return nil;
+}
+
++ (SecretKey*) decodeSecretKey:(NSString*) data {
+    NSData *keyData = [NSData dataWithBase64EncodedString:data];
+    SecretKey *key = [[SecretKey alloc] init:keyData];
+    return key;
+}
+
++ (NSString*) encodeSecretKey:(SecretKey*) key {
+    NSString *encoded = [key.keyData base64EncodedString];
+    return encoded;
+}
 
 @end

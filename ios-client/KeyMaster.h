@@ -6,30 +6,38 @@
 //  Copyright (c) 2013 Hakan Dilek. All rights reserved.
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
+#import "Base64.h"
+#import "PrivateKey.h"
+#import "PublicKey.h"
+#import "KeyPair.h"
+#import "SecretKey.h"
 #import "PublicKey.h"
 #import "PrivateKey.h"
 #import "KeyPair.h"
 #import "KeysmithCommon.h"
-#import <Security/Security.h>
 
-static int PUBLIC_KEY_SIZE = 2048;
-static int PRIVATE_KEY_SIZE = 112;
 static const uint8_t publicKeyIdentifier[]		= kPublicKeyTag;
 static const uint8_t privateKeyIdentifier[]		= kPrivateKeyTag;
 static const uint8_t symmetricKeyIdentifier[]	= kSymmetricKeyTag;
 
 @interface KeyMaster : NSObject
 
-+(NSData*) publicKeyTag;
-+(NSData*) privateKeyTag;
-+(NSData*) symmetricKeyTag;
-+(SecKeyRef) publicKeyRef;
-+(SecKeyRef) privateKeyRef;
++ (NSData*) publicKeyTag;
++ (NSData*) privateKeyTag;
++ (NSData*) symmetricKeyTag;
++ (SecKeyRef) publicKeyRef;
++ (SecKeyRef) privateKeyRef;
 
++ (KeyPair*) generateKeyPair;
++ (KeyPair*) generateKeyPairSize: (int) size;
 + (PublicKey*) decodePublicKey:(NSString*) data;
 + (NSString*) encodePublicKey:(PublicKey*) data;
 
-+ (KeyPair*) generateKeyPair;
++ (SecretKey*) generateSecretKey;
++ (SecretKey*) decodeSecretKey:(NSString*) data;
++ (NSString*) encodeSecretKey:(SecretKey*) data;
 + (PublicKey*) getPublicKey;
+
 
 @end

@@ -11,7 +11,7 @@
 
 @synthesize publicKey, privateKey;
 
-- (id) init: (PublicKey*) pubKey with: (PrivateKey*) priKey;{
+- (id) init: (PublicKey*) pubKey with: (PrivateKey*) priKey {
     self = [super init];
     if (self) {
         publicKey = pubKey;

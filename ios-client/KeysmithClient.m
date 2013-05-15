@@ -67,8 +67,10 @@
     NSString* url;
     NSString *result;
     NSString *keyData = [KeyMaster encodePublicKey:publicKey];
+
     log(@"updatePublicKey key : %@", keyId);
     log(@"data : %@", keyData);
+    log(@"updatePublicKey key : %@", keyData);
     
     url = [baseURL stringByAppendingFormat:UPDATE_URL, keyId];
     log(@"url : %@", url);
@@ -94,8 +96,7 @@
     log(@"result : %@", result);
     
     // decode data
-    publicKey = [[KeyMaster decodePublicKey:result] retain];
-    
+    publicKey = [[KeyMaster decodePublicKey:result] retain];    
     [publicKey autorelease];
     return publicKey;
 }
