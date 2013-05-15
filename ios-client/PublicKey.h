@@ -10,8 +10,7 @@
 @interface PublicKey : NSObject
 
 @property (atomic, retain, readonly) NSData *keyData;
-@property (atomic, readonly) SecKeyRef keyRef;
 
-- (id)init: (NSData*) data andRef:(SecKeyRef) keyRef;
+- (id)init: (NSData*) data;
 
 @end

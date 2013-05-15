@@ -9,17 +9,18 @@
 
 @implementation PrivateKey
 
-@synthesize keyRef;
+@synthesize keyData;
 
-- (id)init:(SecKeyRef) kr {
+- (id)init: (NSData*) data {
     self = [super init];
     if (self) {
-        keyRef = kr;
+        keyData = [data retain];
     }
     return self;
 }
 
 - (void)dealloc {
+    [keyData release];
     [super dealloc];
 }
 

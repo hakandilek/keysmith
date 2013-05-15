@@ -9,8 +9,8 @@
 
 @interface PrivateKey : NSObject
 
-@property (atomic, readonly) SecKeyRef keyRef;
+@property (atomic, retain, readonly) NSData *keyData;
 
-- (id)init:(SecKeyRef) keyRef;
+- (id)init: (NSData*) data;
 
 @end

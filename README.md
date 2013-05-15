@@ -1,8 +1,12 @@
 keysmith
 ========
 
-keysmith is a cryptography showcase for java, written with 
-[dropwizard](https://github.com/codahale/dropwizard).
+keysmith is a cross-platform cryptography showcase with following components:
+
+ * public-key store - Java REST service implementation developed using [dropwizard](https://github.com/codahale/dropwizard).
+ * [Java Client Library](https://github.com/hakandilek/keysmith/tree/master/keysmith-client)
+ * [C#/.net Client Library](https://github.com/hakandilek/keysmith/tree/master/dotnet-client)
+ * [Objective-C/IOS Client Library](https://github.com/hakandilek/keysmith/tree/master/ios-client)
 
 Keysmith introduces 3 schemes for encrypting/decrypting data:
 

@@ -36,11 +36,8 @@
     result = [HTTPUtils get:url];
     log(@"result : %@", result);
     
-    if (result == (id)[NSNull null] || [result length] == 0 )
-        return Nil;
-    
     // decode data
-    publicKey = [[KeyMaster decodePublicKey:result] retain];
+    publicKey = [KeyMaster decodePublicKey:result];
     
     [publicKey autorelease];
     return publicKey;
@@ -67,9 +64,6 @@
     NSString* url;
     NSString *result;
     NSString *keyData = [KeyMaster encodePublicKey:publicKey];
-
-    log(@"updatePublicKey key : %@", keyId);
-    log(@"data : %@", keyData);
     log(@"updatePublicKey key : %@", keyData);
     
     url = [baseURL stringByAppendingFormat:UPDATE_URL, keyId];
@@ -96,7 +90,8 @@
     log(@"result : %@", result);
     
     // decode data
-    publicKey = [[KeyMaster decodePublicKey:result] retain];    
+    publicKey = [KeyMaster decodePublicKey:result];
+    
     [publicKey autorelease];
     return publicKey;
 }
