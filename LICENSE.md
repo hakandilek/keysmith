@@ -1,8 +1,8 @@
 keysmith
 ----------
 
-The MIT License (MIT)
-http://opensource.org/licenses/MIT
+The MIT License (MIT) - http://opensource.org/licenses/MIT
+
 
 Copyright (C) 2013 Hakan Dilek
 
