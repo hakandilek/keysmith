@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Keysmith by hakandilek</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Keysmith</h1>
+        <p>keysmith is an asymmetric cryptography showcase for java</p>
+
+        <p class="view"><a href="https://github.com/hakandilek/keysmith">View the Project on GitHub <small>hakandilek/keysmith</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/hakandilek/keysmith/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/hakandilek/keysmith/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/hakandilek/keysmith">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>keysmith</h1>
+
+<p>keysmith is a cross-platform cryptography showcase with following components:</p>
+
+<ul>
+<li>public-key store - Java REST service implementation developed using <a href="https://github.com/codahale/dropwizard">dropwizard</a>.</li>
+<li><a href="https://github.com/hakandilek/keysmith/tree/master/keysmith-client">Java Client Library</a></li>
+<li><a href="https://github.com/hakandilek/keysmith/tree/master/dotnet-client">C#/.net Client Library</a></li>
+<li><a href="https://github.com/hakandilek/keysmith/tree/master/ios-client">Objective-C/IOS Client Library</a></li>
+</ul><p>Keysmith introduces 3 schemes for encrypting/decrypting data:</p>
+
+<ul>
+<li>Public Key Encryption</li>
+<li>Secret Key (Asymmetric) Encryption</li>
+<li>Hybrid Encryption combining two above</li>
+</ul><h2>Public Key Encryption</h2>
+
+<p>With public key encryption clients generate a key pair, and store the 
+public key on the server. Another client encrypts a message retrieving the key 
+from the server and puts this encrypted message on the server. First client
+retrieves the encrypted message from the server and decrypts it using his own
+private key.</p>
+
+<p>With this method, message size is limited to the key size 
+(keysize / 8 - padding to be exact).</p>
+
+<p><img src="https://raw.github.com/hakandilek/keysmith/master/asymmetric.jpg" alt="asymmetric implementation" title="asymmetric implementation"></p>
+
+<h2>Secret Key Encryption</h2>
+
+<p>With secret key encryption model, client generates a secret key and stores it 
+within the message. Other client receiving the message decrypts it using the 
+enclosed secret key. There's absolutely no security.</p>
+
+<h2>Hybrid Encryption</h2>
+
+<p>Hybrid implementation is a combination of the above schemes. First client 
+generates a key pair and a secret key. While key from the key pair is stored on 
+the server, secret key is encrypted with this public key and message is encrypted
+with the secret key. Thus, the message send to the server contains encrypted 
+secret key and the encrypted message. Other client receiving the message first 
+decrypts the secret key with the private key, then decrypts the message with 
+the secret key.</p>
+
+<p>This method has a slight advantage over the public encryption scheme because 
+there's no limitation on the message size and performing secret key encryption on 
+the message has a slightly huge performance advantage. </p>
+
+<p><img src="https://raw.github.com/hakandilek/keysmith/master/hybrid.jpg" alt="hybrid implementation" title="hybrid implementation"></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/hakandilek">hakandilek</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
