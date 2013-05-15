@@ -1,5 +1,5 @@
 //
-//  PrivateKey.h
+//  SecretKey.h
 //  Keysmith IOS Client
 //
 //  Created by Hakan D on 04/05/2013.
@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PrivateKey : NSObject
+@interface SecretKey : NSObject
 
 @property (atomic, retain, readonly) NSData *keyData;
 

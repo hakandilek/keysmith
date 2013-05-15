@@ -1,13 +1,13 @@
 //
-//  PublicKey.m
+//  SecretKey.m
 //  Keysmith IOS Client
 //
 //  Created by Hakan D on 04/05/2013.
 //  Copyright (c) 2013 Hakan Dilek. All rights reserved.
 
-#import "PublicKey.h"
+#import "SecretKey.h"
 
-@implementation PublicKey
+@implementation SecretKey
 
 @synthesize keyData;
 
@@ -23,4 +23,5 @@
     [keyData release];
     [super dealloc];
 }
+
 @end
