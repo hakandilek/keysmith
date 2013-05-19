@@ -10,6 +10,7 @@ namespace Keysmith.Client.Lib
 {
     using System;
 
+    using Org.BouncyCastle.Asn1;
     using Org.BouncyCastle.Asn1.X509;
     using Org.BouncyCastle.Crypto;
     using Org.BouncyCastle.Crypto.Generators;
@@ -21,6 +22,11 @@ namespace Keysmith.Client.Lib
     /// </summary>
     public class KeyMaster
     {
+        /// <summary>
+        /// The public key algorithm.
+        /// </summary>
+        private static readonly AlgorithmIdentifier PublicKeyAlgorithm = AlgorithmIdentifier.GetInstance("1.2.840.113549.1.1.1"); // OID for RSA
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -35,7 +41,8 @@ namespace Keysmith.Client.Lib
         public PublicKey DecodePublicKey(string keyString)
         {
             byte[] data = Convert.FromBase64String(keyString);
-            AsymmetricKeyParameter publicKeyParam = PublicKeyFactory.CreateKey(data);
+            var keyInfo = new SubjectPublicKeyInfo(PublicKeyAlgorithm, data);
+            AsymmetricKeyParameter publicKeyParam = PublicKeyFactory.CreateKey(keyInfo);
             return new PublicKey(publicKeyParam);
         }
 
@@ -51,7 +58,8 @@ namespace Keysmith.Client.Lib
         public string EncodePublicKey(PublicKey key)
         {
             SubjectPublicKeyInfo publicKeyInfo = key.GetPublicKeyInfo();
-            byte[] data = publicKeyInfo.ToAsn1Object().GetDerEncoded();
+            DerBitString bitString = publicKeyInfo.PublicKeyData;
+            byte[] data = bitString.GetBytes();
             string encoded = Convert.ToBase64String(data);
             return encoded;
         }

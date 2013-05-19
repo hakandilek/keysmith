@@ -83,8 +83,8 @@ namespace Keysmith.Client.Lib
         public Message HybridEncrypt(string message, PublicKey key)
         {
             SecretKey secretKey = this.keyMaster.GenerateSecretKey();
-            string encryptedMsg = this.Encrypt(message, secretKey);
             string encryptedKey = this.Encrypt(secretKey, key);
+            string encryptedMsg = this.Encrypt(message, secretKey);
             return new Message(encryptedKey, encryptedMsg);
         }
 
@@ -221,7 +221,7 @@ namespace Keysmith.Client.Lib
             var keyParam = pk.GetPublicKeyParam();
             var engine = new Pkcs1Encoding(new RsaEngine());
             engine.Init(true, keyParam);
-            var blockSize = bytes.Length;// engine.GetInputBlockSize();
+            var blockSize = bytes.Length; // engine.GetInputBlockSize();
             byte[] enc = engine.ProcessBlock(bytes, 0, blockSize);
             return Convert.ToBase64String(enc);
         }

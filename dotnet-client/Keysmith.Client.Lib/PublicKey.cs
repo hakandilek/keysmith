@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PublicKey.cs" company="">
-//   
+// <copyright file="PublicKey.cs" company="Hakan Dilek">
+//   (c) 2013 Hakan Dilek
 // </copyright>
 // <summary>
 //   The public key.
