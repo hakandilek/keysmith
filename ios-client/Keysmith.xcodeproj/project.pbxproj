@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE73EF81174791AF005E70EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EF80174791AF005E70EA /* Foundation.framework */; };
+		CE73EF90174791B1005E70EA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EF8F174791B1005E70EA /* SenTestingKit.framework */; };
+		CE73EF93174791B1005E70EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EF80174791AF005E70EA /* Foundation.framework */; };
+		CE73EF96174791B2005E70EA /* libKeysmith.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EF7D174791AF005E70EA /* libKeysmith.a */; };
+		CE73EFDF174792FD005E70EA /* Cryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFCB174792FD005E70EA /* Cryptographer.m */; };
+		CE73EFE0174792FD005E70EA /* HTTPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFCD174792FD005E70EA /* HTTPUtils.m */; };
+		CE73EFE1174792FD005E70EA /* KeyMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFCF174792FD005E70EA /* KeyMaster.m */; };
+		CE73EFE2174792FD005E70EA /* KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD1174792FD005E70EA /* KeyPair.m */; };
+		CE73EFE3174792FD005E70EA /* KeysmithClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD4174792FD005E70EA /* KeysmithClient.m */; };
+		CE73EFE4174792FD005E70EA /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD7174792FD005E70EA /* Message.m */; };
+		CE73EFE5174792FD005E70EA /* PrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD9174792FD005E70EA /* PrivateKey.m */; };
+		CE73EFE6174792FD005E70EA /* PublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFDB174792FD005E70EA /* PublicKey.m */; };
+		CE73EFE7174792FD005E70EA /* SecretKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFDE174792FD005E70EA /* SecretKey.m */; };
+		CE73EFF0174793B7005E70EA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EFEF174793B7005E70EA /* Security.framework */; };
+		CE73EFF1174793E7005E70EA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE73EFEF174793B7005E70EA /* Security.framework */; };
+		CE73EFF81747974D005E70EA /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFF71747974D005E70EA /* Base64.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		CE73EFFF17479907005E70EA /* KeyMasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFE917479313005E70EA /* KeyMasterTests.m */; };
+		CE776CE417482FC7002C77B6 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFF71747974D005E70EA /* Base64.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		CE776CE517482FC7002C77B6 /* HTTPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFCD174792FD005E70EA /* HTTPUtils.m */; };
+		CE776CE617482FC7002C77B6 /* KeyMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFCF174792FD005E70EA /* KeyMaster.m */; };
+		CE776CE717482FC7002C77B6 /* KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD1174792FD005E70EA /* KeyPair.m */; };
+		CE776CE817482FC7002C77B6 /* KeysmithClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD4174792FD005E70EA /* KeysmithClient.m */; };
+		CE776CE917482FC7002C77B6 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD7174792FD005E70EA /* Message.m */; };
+		CE776CEA17482FC7002C77B6 /* PrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFD9174792FD005E70EA /* PrivateKey.m */; };
+		CE776CEB17482FC7002C77B6 /* PublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFDB174792FD005E70EA /* PublicKey.m */; };
+		CE776CEC17482FC7002C77B6 /* SecretKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE73EFDE174792FD005E70EA /* SecretKey.m */; };
+		CEEB6A1F1747AEB80070028D /* CryptographerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6A1E1747AEB80070028D /* CryptographerTest.m */; };
+		CEEB6A221747AFB60070028D /* KeysmithClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6A211747AFB60070028D /* KeysmithClientTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CE73EF94174791B2005E70EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE73EF74174791AE005E70EA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE73EF7C174791AF005E70EA;
+			remoteInfo = Keysmith;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE73EF7B174791AF005E70EA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CE73EF7D174791AF005E70EA /* libKeysmith.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKeysmith.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE73EF80174791AF005E70EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CE73EF8E174791B1005E70EA /* KeysmithTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeysmithTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE73EF8F174791B1005E70EA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		CE73EFCA174792FD005E70EA /* Cryptographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cryptographer.h; path = "ios-client/Cryptographer.h"; sourceTree = "<group>"; };
+		CE73EFCB174792FD005E70EA /* Cryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cryptographer.m; path = "ios-client/Cryptographer.m"; sourceTree = "<group>"; };
+		CE73EFCC174792FD005E70EA /* HTTPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPUtils.h; path = "ios-client/HTTPUtils.h"; sourceTree = "<group>"; };
+		CE73EFCD174792FD005E70EA /* HTTPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPUtils.m; path = "ios-client/HTTPUtils.m"; sourceTree = "<group>"; };
+		CE73EFCE174792FD005E70EA /* KeyMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyMaster.h; path = "ios-client/KeyMaster.h"; sourceTree = "<group>"; };
+		CE73EFCF174792FD005E70EA /* KeyMaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyMaster.m; path = "ios-client/KeyMaster.m"; sourceTree = "<group>"; };
+		CE73EFD0174792FD005E70EA /* KeyPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyPair.h; path = "ios-client/KeyPair.h"; sourceTree = "<group>"; };
+		CE73EFD1174792FD005E70EA /* KeyPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyPair.m; path = "ios-client/KeyPair.m"; sourceTree = "<group>"; };
+		CE73EFD2174792FD005E70EA /* Keysmith-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Keysmith-Prefix.pch"; path = "ios-client/Keysmith-Prefix.pch"; sourceTree = "<group>"; };
+		CE73EFD3174792FD005E70EA /* KeysmithClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeysmithClient.h; path = "ios-client/KeysmithClient.h"; sourceTree = "<group>"; };
+		CE73EFD4174792FD005E70EA /* KeysmithClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeysmithClient.m; path = "ios-client/KeysmithClient.m"; sourceTree = "<group>"; };
+		CE73EFD5174792FD005E70EA /* KeysmithCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeysmithCommon.h; path = "ios-client/KeysmithCommon.h"; sourceTree = "<group>"; };
+		CE73EFD6174792FD005E70EA /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = "ios-client/Message.h"; sourceTree = "<group>"; };
+		CE73EFD7174792FD005E70EA /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = "ios-client/Message.m"; sourceTree = "<group>"; };
+		CE73EFD8174792FD005E70EA /* PrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrivateKey.h; path = "ios-client/PrivateKey.h"; sourceTree = "<group>"; };
+		CE73EFD9174792FD005E70EA /* PrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrivateKey.m; path = "ios-client/PrivateKey.m"; sourceTree = "<group>"; };
+		CE73EFDA174792FD005E70EA /* PublicKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublicKey.h; path = "ios-client/PublicKey.h"; sourceTree = "<group>"; };
+		CE73EFDB174792FD005E70EA /* PublicKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublicKey.m; path = "ios-client/PublicKey.m"; sourceTree = "<group>"; };
+		CE73EFDC174792FD005E70EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = "ios-client/README.md"; sourceTree = "<group>"; };
+		CE73EFDD174792FD005E70EA /* SecretKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecretKey.h; path = "ios-client/SecretKey.h"; sourceTree = "<group>"; };
+		CE73EFDE174792FD005E70EA /* SecretKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecretKey.m; path = "ios-client/SecretKey.m"; sourceTree = "<group>"; };
+		CE73EFE817479313005E70EA /* KeyMasterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyMasterTests.h; path = "ios-client-test/KeyMasterTests.h"; sourceTree = SOURCE_ROOT; };
+		CE73EFE917479313005E70EA /* KeyMasterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyMasterTests.m; path = "ios-client-test/KeyMasterTests.m"; sourceTree = SOURCE_ROOT; };
+		CE73EFED1747932C005E70EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		CE73EFEE1747932C005E70EA /* KeysmithTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "KeysmithTests-Info.plist"; path = "ios-client-test/KeysmithTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CE73EFEF174793B7005E70EA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CE73EFF61747974D005E70EA /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base64.h; path = Base64/Base64.h; sourceTree = "<group>"; };
+		CE73EFF71747974D005E70EA /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Base64.m; path = Base64/Base64.m; sourceTree = "<group>"; };
+		CE73EFFE174798A4005E70EA /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Common.h; path = "ios-client/Common.h"; sourceTree = "<group>"; };
+		CEEB6A1D1747AEB80070028D /* CryptographerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CryptographerTest.h; path = "ios-client-test/CryptographerTest.h"; sourceTree = SOURCE_ROOT; };
+		CEEB6A1E1747AEB80070028D /* CryptographerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CryptographerTest.m; path = "ios-client-test/CryptographerTest.m"; sourceTree = SOURCE_ROOT; };
+		CEEB6A201747AFB60070028D /* KeysmithClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeysmithClientTests.h; path = "ios-client-test/KeysmithClientTests.h"; sourceTree = SOURCE_ROOT; };
+		CEEB6A211747AFB60070028D /* KeysmithClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeysmithClientTests.m; path = "ios-client-test/KeysmithClientTests.m"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE73EF7A174791AF005E70EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE73EFF0174793B7005E70EA /* Security.framework in Frameworks */,
+				CE73EF81174791AF005E70EA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE73EF8A174791B1005E70EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE73EFF1174793E7005E70EA /* Security.framework in Frameworks */,
+				CE73EF90174791B1005E70EA /* SenTestingKit.framework in Frameworks */,
+				CE73EF93174791B1005E70EA /* Foundation.framework in Frameworks */,
+				CE73EF96174791B2005E70EA /* libKeysmith.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE73EF72174791AE005E70EA = {
+			isa = PBXGroup;
+			children = (
+				CE73EFDC174792FD005E70EA /* README.md */,
+				CE73EFF2174795EC005E70EA /* Base64 */,
+				CE73EFC9174792EA005E70EA /* Keysmith */,
+				CE73EF97174791B2005E70EA /* KeysmithTests */,
+				CE73EF7F174791AF005E70EA /* Frameworks */,
+				CE73EF7E174791AF005E70EA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CE73EF7E174791AF005E70EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EF7D174791AF005E70EA /* libKeysmith.a */,
+				CE73EF8E174791B1005E70EA /* KeysmithTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE73EF7F174791AF005E70EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EF80174791AF005E70EA /* Foundation.framework */,
+				CE73EFEF174793B7005E70EA /* Security.framework */,
+				CE73EF8F174791B1005E70EA /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE73EF97174791B2005E70EA /* KeysmithTests */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EFE817479313005E70EA /* KeyMasterTests.h */,
+				CE73EFE917479313005E70EA /* KeyMasterTests.m */,
+				CEEB6A1D1747AEB80070028D /* CryptographerTest.h */,
+				CEEB6A1E1747AEB80070028D /* CryptographerTest.m */,
+				CEEB6A201747AFB60070028D /* KeysmithClientTests.h */,
+				CEEB6A211747AFB60070028D /* KeysmithClientTests.m */,
+				CE73EF98174791B2005E70EA /* Supporting Files */,
+			);
+			path = KeysmithTests;
+			sourceTree = "<group>";
+		};
+		CE73EF98174791B2005E70EA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EFEB1747932C005E70EA /* en.lproj */,
+				CE73EFEE1747932C005E70EA /* KeysmithTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE73EFC9174792EA005E70EA /* Keysmith */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EFD2174792FD005E70EA /* Keysmith-Prefix.pch */,
+				CE73EFFE174798A4005E70EA /* Common.h */,
+				CE73EFCC174792FD005E70EA /* HTTPUtils.h */,
+				CE73EFCD174792FD005E70EA /* HTTPUtils.m */,
+				CE73EFCA174792FD005E70EA /* Cryptographer.h */,
+				CE73EFCB174792FD005E70EA /* Cryptographer.m */,
+				CE73EFCE174792FD005E70EA /* KeyMaster.h */,
+				CE73EFCF174792FD005E70EA /* KeyMaster.m */,
+				CE73EFD0174792FD005E70EA /* KeyPair.h */,
+				CE73EFD1174792FD005E70EA /* KeyPair.m */,
+				CE73EFD3174792FD005E70EA /* KeysmithClient.h */,
+				CE73EFD4174792FD005E70EA /* KeysmithClient.m */,
+				CE73EFD5174792FD005E70EA /* KeysmithCommon.h */,
+				CE73EFD6174792FD005E70EA /* Message.h */,
+				CE73EFD7174792FD005E70EA /* Message.m */,
+				CE73EFD8174792FD005E70EA /* PrivateKey.h */,
+				CE73EFD9174792FD005E70EA /* PrivateKey.m */,
+				CE73EFDA174792FD005E70EA /* PublicKey.h */,
+				CE73EFDB174792FD005E70EA /* PublicKey.m */,
+				CE73EFDD174792FD005E70EA /* SecretKey.h */,
+				CE73EFDE174792FD005E70EA /* SecretKey.m */,
+			);
+			name = Keysmith;
+			sourceTree = "<group>";
+		};
+		CE73EFEB1747932C005E70EA /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EFEC1747932C005E70EA /* InfoPlist.strings */,
+			);
+			name = en.lproj;
+			path = "ios-client-test/en.lproj";
+			sourceTree = SOURCE_ROOT;
+		};
+		CE73EFF2174795EC005E70EA /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				CE73EFF61747974D005E70EA /* Base64.h */,
+				CE73EFF71747974D005E70EA /* Base64.m */,
+			);
+			name = Base64;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE73EF7C174791AF005E70EA /* Keysmith */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE73EFA2174791B2005E70EA /* Build configuration list for PBXNativeTarget "Keysmith" */;
+			buildPhases = (
+				CE73EF79174791AF005E70EA /* Sources */,
+				CE73EF7A174791AF005E70EA /* Frameworks */,
+				CE73EF7B174791AF005E70EA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Keysmith;
+			productName = Keysmith;
+			productReference = CE73EF7D174791AF005E70EA /* libKeysmith.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CE73EF8D174791B1005E70EA /* KeysmithTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE73EFA5174791B2005E70EA /* Build configuration list for PBXNativeTarget "KeysmithTests" */;
+			buildPhases = (
+				CE73EF89174791B1005E70EA /* Sources */,
+				CE73EF8A174791B1005E70EA /* Frameworks */,
+				CE73EF8B174791B1005E70EA /* Resources */,
+				CE73EF8C174791B1005E70EA /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE73EF95174791B2005E70EA /* PBXTargetDependency */,
+			);
+			name = KeysmithTests;
+			productName = KeysmithTests;
+			productReference = CE73EF8E174791B1005E70EA /* KeysmithTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE73EF74174791AE005E70EA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Mobil Rapor";
+			};
+			buildConfigurationList = CE73EF77174791AE005E70EA /* Build configuration list for PBXProject "Keysmith" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CE73EF72174791AE005E70EA;
+			productRefGroup = CE73EF7E174791AF005E70EA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE73EF7C174791AF005E70EA /* Keysmith */,
+				CE73EF8D174791B1005E70EA /* KeysmithTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE73EF8B174791B1005E70EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE73EF8C174791B1005E70EA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE73EF79174791AF005E70EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE73EFDF174792FD005E70EA /* Cryptographer.m in Sources */,
+				CE73EFE0174792FD005E70EA /* HTTPUtils.m in Sources */,
+				CE73EFE1174792FD005E70EA /* KeyMaster.m in Sources */,
+				CE73EFE2174792FD005E70EA /* KeyPair.m in Sources */,
+				CE73EFE3174792FD005E70EA /* KeysmithClient.m in Sources */,
+				CE73EFE4174792FD005E70EA /* Message.m in Sources */,
+				CE73EFE5174792FD005E70EA /* PrivateKey.m in Sources */,
+				CE73EFE6174792FD005E70EA /* PublicKey.m in Sources */,
+				CE73EFE7174792FD005E70EA /* SecretKey.m in Sources */,
+				CE73EFF81747974D005E70EA /* Base64.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE73EF89174791B1005E70EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE776CE417482FC7002C77B6 /* Base64.m in Sources */,
+				CE776CE517482FC7002C77B6 /* HTTPUtils.m in Sources */,
+				CE776CE617482FC7002C77B6 /* KeyMaster.m in Sources */,
+				CE776CE717482FC7002C77B6 /* KeyPair.m in Sources */,
+				CE776CE817482FC7002C77B6 /* KeysmithClient.m in Sources */,
+				CE776CE917482FC7002C77B6 /* Message.m in Sources */,
+				CE776CEA17482FC7002C77B6 /* PrivateKey.m in Sources */,
+				CE776CEB17482FC7002C77B6 /* PublicKey.m in Sources */,
+				CE776CEC17482FC7002C77B6 /* SecretKey.m in Sources */,
+				CE73EFFF17479907005E70EA /* KeyMasterTests.m in Sources */,
+				CEEB6A1F1747AEB80070028D /* CryptographerTest.m in Sources */,
+				CEEB6A221747AFB60070028D /* KeysmithClientTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE73EF95174791B2005E70EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE73EF7C174791AF005E70EA /* Keysmith */;
+			targetProxy = CE73EF94174791B2005E70EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CE73EFEC1747932C005E70EA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE73EFED1747932C005E70EA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CE73EFA0174791B2005E70EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CE73EFA1174791B2005E70EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE73EFA3174791B2005E70EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Keysmith.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-client/Keysmith-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CE73EFA4174791B2005E70EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Keysmith.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-client/Keysmith-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CE73EFA6174791B2005E70EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-client/Keysmith-Prefix.pch";
+				INFOPLIST_FILE = "ios-client-test/KeysmithTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		CE73EFA7174791B2005E70EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-client/Keysmith-Prefix.pch";
+				INFOPLIST_FILE = "ios-client-test/KeysmithTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE73EF77174791AE005E70EA /* Build configuration list for PBXProject "Keysmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE73EFA0174791B2005E70EA /* Debug */,
+				CE73EFA1174791B2005E70EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE73EFA2174791B2005E70EA /* Build configuration list for PBXNativeTarget "Keysmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE73EFA3174791B2005E70EA /* Debug */,
+				CE73EFA4174791B2005E70EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE73EFA5174791B2005E70EA /* Build configuration list for PBXNativeTarget "KeysmithTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE73EFA6174791B2005E70EA /* Debug */,
+				CE73EFA7174791B2005E70EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE73EF74174791AE005E70EA /* Project object */;
+}

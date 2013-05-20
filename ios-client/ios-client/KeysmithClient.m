@@ -24,6 +24,10 @@
     [super dealloc];
 }
 
+- (BOOL) isEmpty:(NSString*) str {
+    return [str length] == 0;
+}
+
 - (PublicKey*) getPublicKey : (NSString *) keyId {
     NSString* url;
     NSString *result;
@@ -36,10 +40,12 @@
     result = [HTTPUtils get:url];
     log(@"result : %@", result);
     
+    if ([self isEmpty:result]) {
+        return nil;
+    }
+    
     // decode data
     publicKey = [KeyMaster decodePublicKey:result];
-    
-    [publicKey autorelease];
     return publicKey;
 }
 
@@ -57,6 +63,9 @@
     log(@"result : %@", result);
     
     [result autorelease];
+    if ([self isEmpty:result]) {
+        return nil;
+    }
     return result;
 }
 
@@ -74,6 +83,9 @@
     log(@"result : %@", result);
     
     [result autorelease];
+    if ([self isEmpty:result]) {
+        return nil;
+    }
     return result;
 }
 
@@ -89,10 +101,12 @@
     result = [HTTPUtils del:url];
     log(@"result : %@", result);
     
+    if ([self isEmpty:result]) {
+        return nil;
+    }
+    
     // decode data
     publicKey = [KeyMaster decodePublicKey:result];
-    
-    [publicKey autorelease];
     return publicKey;
 }
 
