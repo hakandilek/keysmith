@@ -13,6 +13,7 @@ import com.yammer.dropwizard.hibernate.HibernateBundle;
 
 public class Keysmith<T extends Configuration> extends Service<T> {
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private final HibernateBundle<T> hibernate = new KeysmithHibernateBundle();
 
 	@Override
@@ -23,7 +24,6 @@ public class Keysmith<T extends Configuration> extends Service<T> {
 
 	@Override
 	public void run(T configuration, Environment environment) throws Exception {
-		// Keystore keyStore = new MemoryKeyStore();
 		Keystore keyStore = new SimpleKeyDAO(hibernate.getSessionFactory());
 		environment.addResource(new KeysmithResource(keyStore));
 	}
