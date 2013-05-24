@@ -1,6 +1,7 @@
 package keysmith.service.core;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,6 +21,7 @@ public class SimpleKey {
 
 	@Basic
 	@NotNull
+	@Column(length=1024)
 	String data;
 
 	public SimpleKey() {
