@@ -28,6 +28,10 @@ public class MemoryKeyStore implements Keystore {
 		return keyId;
 	}
 
+	@Override
+	public SimpleKey update(String keyId, SimpleKey key) {
+		return keys.put(keyId, key);
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,5 +40,11 @@ public class MemoryKeyStore implements Keystore {
 	public SimpleKey removeKey(String keyId) {
 		return keys.remove(keyId);
 	}
+
+	@Override
+	public Long size() {
+		return (long) keys.size();
+	}
+
 
 }
