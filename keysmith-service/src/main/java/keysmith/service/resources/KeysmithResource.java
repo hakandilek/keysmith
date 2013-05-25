@@ -36,10 +36,10 @@ public class KeysmithResource {
 
 	@GET
 	@Timed
-	@Path("/publicKey/{keyId}")
+	@Path("/publicKey/{ukey}")
 	@UnitOfWork
-	public Response getPublicKey(@PathParam("keyId") String keyId) {
-		SimpleKey key = keyStore.get(keyId);
+	public Response getPublicKey(@PathParam("ukey") String ukey) {
+		SimpleKey key = keyStore.get(ukey);
 		if (key == null) {
 			return Response.noContent().build();
 		}
@@ -51,34 +51,35 @@ public class KeysmithResource {
 	@Path("/publicKey")
 	@UnitOfWork
 	public Response postPublicKey(String keyData) {
-		String keyId = keyStore.put(new SimpleKey(null, keyData));
-		if (keyId == null) {
+		String ukey = keyStore.put(new SimpleKey(null, keyData));
+		if (ukey == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(keyId).build();
+		return Response.ok(ukey).build();
 	}
 
 	@POST
 	@Timed
-	@Path("/publicKey/{keyId}")
+	@Path("/publicKey/{ukey}")
 	@UnitOfWork
-	public Response updatePublicKey(@PathParam("keyId") String keyId, String keyData) {
-		SimpleKey key = new SimpleKey(keyId, keyData);
-		log.info("updatePublicKey.address : " + keyId);
+	public Response updatePublicKey(@PathParam("ukey") String ukey, String keyData) {
+		SimpleKey key = new SimpleKey(null, keyData);
+		key.setUkey(ukey);
+		log.info("updatePublicKey.address : " + ukey);
 		log.info("updatePublicKey.message : " + key);
-		String oldKeyId = keyStore.put(key);
-		if (oldKeyId == null) {
+		SimpleKey oldKey = keyStore.update(ukey, key);
+		if (oldKey == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(oldKeyId).build();
+		return Response.ok(oldKey.getUkey()).build();
 	}
 
 	@DELETE
 	@Timed
-	@Path("/publicKey/{keyId}")
+	@Path("/publicKey/{ukey}")
 	@UnitOfWork
-	public Response removePublicKey(@PathParam("keyId") String keyId) {
-		SimpleKey key = keyStore.removeKey(keyId);
+	public Response removePublicKey(@PathParam("ukey") String ukey) {
+		SimpleKey key = keyStore.removeKey(ukey);
 		if (key == null) {
 			return Response.noContent().build();
 		}

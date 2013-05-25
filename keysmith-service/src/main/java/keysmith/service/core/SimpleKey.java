@@ -8,17 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "PUBLIC_KEY")
 public class SimpleKey {
 
 	@Id 
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid2")
-	String id;
+	@GeneratedValue
+	Integer id;
 
+	@Basic
+	String ukey;
+	
 	@Basic
 	@NotNull
 	@Column(length=1024)
@@ -28,18 +28,26 @@ public class SimpleKey {
 		super();
 	}
 
-	public SimpleKey(String id, String data) {
+	public SimpleKey(Integer id, String data) {
 		super();
 		this.id = id;
 		this.data = data;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getUkey() {
+		return ukey;
+	}
+
+	public void setUkey(String ukey) {
+		this.ukey = ukey;
 	}
 
 	public String getData() {
