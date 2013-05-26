@@ -20,7 +20,7 @@ public class KeystoreMetricCheck extends HealthCheck {
         sb.append("  PUT    count : ").append(keyStore.getPutRequests().getCount()).append("\n");
         sb.append("  PUT     rate : ").append(keyStore.getPutRequests().getOneMinuteRate()).append("/min\n");
         sb.append("  UPDATE count : ").append(keyStore.getUpdateRequests().getCount()).append("\n");
-        sb.append("  UPDATE  rate : ").append(keyStore.getUpdateRequests().getOneMinuteRate()).append("/min\n");
+        sb.append("  UPDATE  rate : ").append(keyStore.getUpdateRequests().getOneMinuteRate()).append("/min");
 		return Result.healthy(sb.toString());
 	}
 

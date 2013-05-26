@@ -12,7 +12,7 @@ public class HttpUtils {
 	public HttpUtils() {
 	}
 
-	public <T> T get(Client client, String url, Class<T> resultType) {
+	public <T> T get(Client client, String url, Class<T> resultType) throws HttpResponseException {
 		WebResource wr = client.resource(url);
 
 		Builder b = wr.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
@@ -26,7 +26,7 @@ public class HttpUtils {
 		return result;
 	}
 
-	public <T> T delete(Client client, String url, Class<T> resultType) {
+	public <T> T delete(Client client, String url, Class<T> resultType) throws HttpResponseException {
 		WebResource wr = client.resource(url);
 
 		Builder b = wr.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
@@ -41,7 +41,7 @@ public class HttpUtils {
 	}
 
 	public <T, P> T post(Client client, String url, Class<T> resultType,
-			P param) {
+			P param) throws HttpResponseException {
 		WebResource wr = client.resource(url);
 
 		Builder b = wr.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
@@ -55,9 +55,8 @@ public class HttpUtils {
 		return result;
 	}
 
-	private void exception(ClientResponse response) {
-		throw new RuntimeException("Failed : HTTP error code : "
-				+ response.getStatus());
+	private void exception(ClientResponse response) throws HttpResponseException {
+		throw new HttpResponseException(response.getStatus());
 	}
 
 }
