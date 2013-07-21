@@ -92,8 +92,11 @@ namespace Keysmith.Client.Lib
 
                     try
                     {
-                        var result = (HttpWebResponse)webReq.GetResponse();
-                        var resStream = result.GetResponseStream();
+                        var result = (HttpWebResponse) webReq.GetResponse();
+                        if (result.StatusCode == HttpStatusCode.NotFound ||
+                            result.StatusCode == HttpStatusCode.NoContent)
+                            return null;
+                        Stream resStream = result.GetResponseStream();
                         if (resStream != null)
                         {
                             var reader = new StreamReader(resStream);
