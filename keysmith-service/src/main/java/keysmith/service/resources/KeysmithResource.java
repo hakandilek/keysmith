@@ -24,8 +24,7 @@ import com.yammer.metrics.annotation.Timed;
 @Path("/keysmith")
 public class KeysmithResource {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(KeysmithResource.class);
+	private static final Logger log = LoggerFactory.getLogger(KeysmithResource.class);
 
 	private final Keystore keyStore;
 
@@ -43,7 +42,8 @@ public class KeysmithResource {
 		if (key == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(key.getData()).build();
+		String keyData = key.getData();
+		return Response.ok("\"" + keyData + "\"").build();
 	}
 
 	@POST
@@ -55,7 +55,7 @@ public class KeysmithResource {
 		if (ukey == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(ukey).build();
+		return Response.ok("\"" + ukey + "\"").build();
 	}
 
 	@POST
@@ -71,7 +71,8 @@ public class KeysmithResource {
 		if (oldKey == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(oldKey.getUkey()).build();
+		String oldUkey = oldKey.getUkey();
+		return Response.ok("\"" + oldUkey + "\"").build();
 	}
 
 	@DELETE
@@ -83,7 +84,8 @@ public class KeysmithResource {
 		if (key == null) {
 			return Response.noContent().build();
 		}
-		return Response.ok(key.getData()).build();
+		String keyData = key.getData();
+		return Response.ok("\"" + keyData + "\"").build();
 	}
 
 }
