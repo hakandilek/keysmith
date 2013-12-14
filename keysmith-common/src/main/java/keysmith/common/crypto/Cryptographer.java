@@ -1,4 +1,4 @@
-package keysmith.client.core;
+package keysmith.common.crypto;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -9,11 +9,11 @@ import javax.crypto.spec.IvParameterSpec;
 
 import keysmith.common.core.Message;
 
-public class CryptographyController {
+public class Cryptographer {
 
 	KeyMaster keyMaster;
 
-	public CryptographyController(KeyMaster keyMaster) {
+	public Cryptographer(KeyMaster keyMaster) {
 		this.keyMaster = keyMaster;
 	}
 

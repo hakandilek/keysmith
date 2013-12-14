@@ -8,7 +8,7 @@ import java.security.PublicKey;
 
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.KeysmithServerClient;
-import keysmith.client.core.KeyMaster;
+import keysmith.common.crypto.KeyMaster;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.slf4j.Logger;

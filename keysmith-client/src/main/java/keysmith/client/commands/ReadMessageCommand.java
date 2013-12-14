@@ -6,9 +6,9 @@ import java.security.PrivateKey;
 
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.MessengerServerClient;
-import keysmith.client.core.CryptographyController;
-import keysmith.client.core.KeyMaster;
 import keysmith.common.core.Message;
+import keysmith.common.crypto.Cryptographer;
+import keysmith.common.crypto.KeyMaster;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.slf4j.Logger;
@@ -27,13 +27,13 @@ public class ReadMessageCommand extends
 
 	private KeyMaster keyMaster;
 
-	private CryptographyController controller;
+	private Cryptographer controller;
 
 	public ReadMessageCommand(Service<KeysmithClientConfiguration> service,
 			KeyMaster keyMaster) {
 		super(service, "read", "Reads a message from the server and decodes it with the previously stored private key");
 		this.keyMaster = keyMaster;
-		this.controller = new CryptographyController(keyMaster);
+		this.controller = new Cryptographer(keyMaster);
 	}
 
 	@Override

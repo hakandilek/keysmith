@@ -1,4 +1,4 @@
-package keysmith.client.core;
+package keysmith.common.crypto;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,11 +20,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class KeyMaster {
-	private static final Logger log = LoggerFactory.getLogger(KeyMaster.class);
 
 	private int keySize;
 
@@ -63,7 +59,7 @@ public class KeyMaster {
 			KeyPair kp = keyGen.genKeyPair();
 			return kp;
 		} catch (NoSuchAlgorithmException e) {
-			log.error("Algorithm not recognized" + e, e);
+			e.printStackTrace();
 		}
 		return null;
 	}

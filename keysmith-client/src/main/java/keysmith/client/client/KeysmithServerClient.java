@@ -4,7 +4,7 @@ import java.security.PublicKey;
 
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.core.HttpResponseException;
-import keysmith.client.core.KeyMaster;
+import keysmith.common.crypto.KeyMaster;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

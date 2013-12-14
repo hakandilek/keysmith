@@ -11,6 +11,8 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
 import keysmith.common.core.Message;
+import keysmith.common.crypto.Cryptographer;
+import keysmith.common.crypto.KeyMaster;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +26,7 @@ public class CryptographyControllerTest {
 	@Mock
 	KeyMaster keyMaster;
 
-	CryptographyController controller;
+	Cryptographer controller;
 
 	KeyPair keyPair;
 
@@ -37,7 +39,7 @@ public class CryptographyControllerTest {
 		Cipher secCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
 		when(keyMaster.getPublicCipher()).thenReturn(pubCipher);
 		when(keyMaster.getSecretCipher()).thenReturn(secCipher);
-		controller = new CryptographyController(keyMaster);
+		controller = new Cryptographer(keyMaster);
 
 		Mockito.doCallRealMethod()
 				.when(keyMaster)

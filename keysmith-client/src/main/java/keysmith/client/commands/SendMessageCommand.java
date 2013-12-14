@@ -9,9 +9,9 @@ import javax.crypto.SecretKey;
 import keysmith.client.KeysmithClientConfiguration;
 import keysmith.client.client.KeysmithServerClient;
 import keysmith.client.client.MessengerServerClient;
-import keysmith.client.core.CryptographyController;
-import keysmith.client.core.KeyMaster;
 import keysmith.common.core.Message;
+import keysmith.common.crypto.Cryptographer;
+import keysmith.common.crypto.KeyMaster;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import org.slf4j.Logger;
@@ -30,14 +30,14 @@ public class SendMessageCommand extends
 
 	private KeyMaster keyMaster;
 
-	private CryptographyController controller;
+	private Cryptographer controller;
 
 	public SendMessageCommand(Service<KeysmithClientConfiguration> service,
 			KeyMaster keyMaster) {
 		super(service, "send", "Encodes the message with the public key "
 				+ "from keysmith server and sends it to the messenger server");
 		this.keyMaster = keyMaster;
-		this.controller = new CryptographyController(keyMaster);
+		this.controller = new Cryptographer(keyMaster);
 	}
 
 	@Override
