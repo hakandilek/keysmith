@@ -104,6 +104,29 @@ public class KeyMaster {
 		return new SecretKeySpec(data, secretKeyAlgorithm);
 	}
 
+
+	public String encodePrivateKey(PrivateKey privateKey) {
+		// Store Private Key.
+		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(
+				privateKey.getEncoded());
+		byte[] encoded = pkcs8EncodedKeySpec.getEncoded();
+		String keyData = Encoder.encode(encoded);
+		return keyData;
+	}
+
+	public PrivateKey decodePrivateKey(String privateKeyData) {
+		try {
+			byte[] keyData = Encoder.decode(privateKeyData);
+			PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(
+					keyData);
+			PrivateKey key = publicKeyFactory.generatePrivate(privateKeySpec);
+			return key;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public String savePrivateKey(String keyId, PrivateKey key) {
 		try {
 			// Store Private Key.

@@ -11,7 +11,7 @@ import keysmith.common.core.Message;
 
 public class Cryptographer {
 
-	KeyMaster keyMaster;
+	protected KeyMaster keyMaster;
 
 	public Cryptographer(KeyMaster keyMaster) {
 		this.keyMaster = keyMaster;
