@@ -3,19 +3,19 @@ package keysmith.messenger;
 import keysmith.messenger.core.MessageStore;
 import keysmith.messenger.resources.MessengerResource;
 
+import com.yammer.dropwizard.ConfiguredBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
 
-import dropwizard.module.Module;
+public class MessengerBundle<T extends Configuration> implements ConfiguredBundle<T> {
 
-public class MessengerModule<C extends Configuration> implements Module<C> {
-
-	public void initialize(Bootstrap<C> bootstrap) {
+	public void initialize(Bootstrap<?> bootstrap) {
+		bootstrap.setName("keysmith");
 	}
 
-	public void register(C configuration, Environment environment)
-			throws Exception {
+	@Override
+	public void run(T configuration, Environment environment) throws Exception {
 		MessageStore messageStore = new MessageStore();
 		environment.addResource(new MessengerResource(messageStore));
 	}

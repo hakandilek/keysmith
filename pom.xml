@@ -13,6 +13,5 @@
 		<module>keysmith-client</module>
 		<module>keysmith-messenger</module>
 		<module>keysmith-service</module>
-		<module>dropwizard-module</module>
 	</modules>
 </project>

@@ -9,12 +9,21 @@ import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
+import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 
 public class Keysmith<T extends Configuration> extends Service<T> {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private final HibernateBundle<T> hibernate = new KeysmithHibernateBundle();
+	private final HibernateBundle<T> hibernate = new KeysmithHibernateBundle() {
+
+		@Override
+		public DatabaseConfiguration getDatabaseConfiguration(Configuration configuration) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	};
 
 	@Override
 	public void initialize(Bootstrap<T> bootstrap) {

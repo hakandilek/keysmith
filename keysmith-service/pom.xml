@@ -14,12 +14,6 @@
 	</properties>
 	<artifactId>keysmith-service</artifactId>
 	<dependencies>
-        <dependency>
-            <groupId>keysmith</groupId>
-            <artifactId>dropwizard-module</artifactId>
-            <version>0.2.3-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
 		<dependency>
 			<groupId>com.yammer.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>

@@ -8,26 +8,35 @@ import keysmith.service.health.MetricKeyStore;
 import keysmith.service.resources.KeysmithResource;
 
 import com.codahale.metrics.MetricRegistry;
+import com.yammer.dropwizard.ConfiguredBundle;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
+import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
+import com.yammer.dropwizard.db.DatabaseConfiguration;
+import com.yammer.dropwizard.hibernate.HibernateBundle;
 
-import dropwizard.module.Module;
+public abstract class KeysmithBundle<T extends Configuration> implements ConfiguredBundle<T>,
+		KeysmithConfigurationStrategy<T> {
 
-public class KeysmithModule<T extends KeysmithConfiguration> implements Module<T> {
+	private final HibernateBundle<Configuration> hibernate = new KeysmithHibernateBundle<Configuration>() {
+		@SuppressWarnings("unchecked")
+		public DatabaseConfiguration getDatabaseConfiguration(Configuration configuration) {
+			return KeysmithBundle.this.getDatabaseConfiguration((T) configuration);
+		}
+	};
 
-	private final KeysmithHibernateBundle<T> hibernate = new KeysmithHibernateBundle<T>();
-	
-	public void initialize(Bootstrap<T> bootstrap) {
+	public void initialize(Bootstrap<?> bootstrap) {
 		bootstrap.setName("keysmith");
 		bootstrap.addBundle(hibernate);
-		bootstrap.addBundle(new AssetsBundle("/favicon.ico")); 
+		bootstrap.addBundle(new AssetsBundle("/favicon.ico"));
 	}
 
-	public void register(T configuration, Environment environment) throws Exception {
+	@Override
+	public void run(T configuration, Environment environment) throws Exception {
 		MetricRegistry metrics = new MetricRegistry();
 		MetricKeyStore keyStore = new MetricKeyStore(new SimpleKeyDAO(hibernate.getSessionFactory()), metrics);
-		
+
 		environment.addResource(new KeysmithResource(keyStore));
 		environment.addHealthCheck(new KeystoreSizeCheck(keyStore));
 		environment.addHealthCheck(new KeystoreMetricCheck(keyStore));
