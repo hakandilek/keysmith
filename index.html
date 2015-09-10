@@ -6,7 +6,8 @@
     <title>Keysmith by hakandilek</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,20 +16,22 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Keysmith</h1>
-        <p>keysmith is an asymmetric cryptography showcase for java</p>
-
-        <p class="view"><a href="https://github.com/hakandilek/keysmith">View the Project on GitHub <small>hakandilek/keysmith</small></a></p>
-
+        <h1 class="header">Keysmith</h1>
+        <p class="header">keysmith is an asymmetric cryptography showcase for java</p>
 
         <ul>
-          <li><a href="https://github.com/hakandilek/keysmith/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/hakandilek/keysmith/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/hakandilek/keysmith">View On <strong>GitHub</strong></a></li>
+          <li class="download"><a class="buttons" href="https://github.com/hakandilek/keysmith/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/hakandilek/keysmith/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/hakandilek/keysmith">View On GitHub</a></li>
         </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/hakandilek">hakandilek</a></p>
+
+
       </header>
       <section>
-        <h1>keysmith</h1>
+        <h1>
+<a id="keysmith" class="anchor" href="#keysmith" aria-hidden="true"><span class="octicon octicon-link"></span></a>keysmith</h1>
 
 <p>keysmith is a cross-platform cryptography showcase with following components:</p>
 
@@ -37,13 +40,18 @@
 <li><a href="https://github.com/hakandilek/keysmith/tree/master/keysmith-client">Java Client Library</a></li>
 <li><a href="https://github.com/hakandilek/keysmith/tree/master/dotnet-client">C#/.net Client Library</a></li>
 <li><a href="https://github.com/hakandilek/keysmith/tree/master/ios-client">Objective-C/IOS Client Library</a></li>
-</ul><p>Keysmith introduces 3 schemes for encrypting/decrypting data:</p>
+</ul>
+
+<p>Keysmith introduces 3 schemes for encrypting/decrypting data:</p>
 
 <ul>
 <li>Public Key Encryption</li>
 <li>Secret Key (Asymmetric) Encryption</li>
 <li>Hybrid Encryption combining two above</li>
-</ul><h2>Public Key Encryption</h2>
+</ul>
+
+<h2>
+<a id="public-key-encryption" class="anchor" href="#public-key-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public Key Encryption</h2>
 
 <p>With public key encryption clients generate a key pair, and store the 
 public key on the server. Another client encrypts a message retrieving the key 
@@ -56,13 +64,15 @@ private key.</p>
 
 <p><img src="https://raw.github.com/hakandilek/keysmith/master/asymmetric.jpg" alt="asymmetric implementation" title="asymmetric implementation"></p>
 
-<h2>Secret Key Encryption</h2>
+<h2>
+<a id="secret-key-encryption" class="anchor" href="#secret-key-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secret Key Encryption</h2>
 
 <p>With secret key encryption model, client generates a secret key and stores it 
 within the message. Other client receiving the message decrypts it using the 
 enclosed secret key. There's absolutely no security.</p>
 
-<h2>Hybrid Encryption</h2>
+<h2>
+<a id="hybrid-encryption" class="anchor" href="#hybrid-encryption" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hybrid Encryption</h2>
 
 <p>Hybrid implementation is a combination of the above schemes. First client 
 generates a key pair and a secret key. While key from the key pair is stored on 
@@ -79,11 +89,10 @@ the message has a slightly huge performance advantage. </p>
 <p><img src="https://raw.github.com/hakandilek/keysmith/master/hybrid.jpg" alt="hybrid implementation" title="hybrid implementation"></p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/hakandilek">hakandilek</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
